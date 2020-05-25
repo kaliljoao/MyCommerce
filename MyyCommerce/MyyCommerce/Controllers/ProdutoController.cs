@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ using MyyCommerce.Utils;
 
 namespace MyyCommerce.Controllers
 {
+    [Authorize]
     public class ProdutoController : Controller
     {
         private readonly ApplicationDbContext db;
@@ -89,7 +91,7 @@ namespace MyyCommerce.Controllers
                     }
 
                     image.ProdutoId = model.Produto.Id;
-                    //image.Path = filePath;
+                    image.Path = filePath;
                     model.Produto.Fotos.Add(image);
                 }
 

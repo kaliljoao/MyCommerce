@@ -1,0 +1,800 @@
+﻿.navbar-nav {
+    flex-direction: row;
+}
+
+#main-content {
+    height: 100vh !important;
+}
+
+.tables .tablecenter tbody, .tables .tablecenter thead {
+    text-align: center;
+}
+
+.form-signin {
+    background: none;
+}
+
+.detalhesImgWrapper img, .detalheImgMini img {
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    background: no-repeat center/cover;
+}
+
+
+a.logo {
+    padding: 20px 10px;
+    margin-top: 0px;
+    margin-left: 40px;
+}
+
+.form-signin .form-control {
+    padding: 10px 0px;
+}
+
+bold {
+    font-weight: bold;
+}
+
+    bold.title {
+        font-size: 1rem;
+    }
+
+a.logo img {
+    height: 45px;
+}
+
+.nav li {
+    padding: 10px 5px;
+}
+
+
+.vitrineNav {
+    text-align: left;
+    margin-top: 20px;
+}
+
+    .vitrineNav li {
+        display: inline-block;
+        padding: 5px;
+    }
+
+.btn-filter {
+    background-color: lightgray;
+    color: black;
+    border-radius: 1px;
+}
+
+.ProductName {
+    color: black;
+    font-size: 1rem;
+}
+
+.SideColumn p {
+    margin-bottom: 45px;
+}
+
+.ProductNavigation {
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+}
+
+    .ProductNavigation a {
+        color: black;
+    }
+
+    .ProductNavigation .back i {
+        margin-right: 15px;
+    }
+
+    .ProductNavigation .forward {
+        float: right;
+    }
+
+        .ProductNavigation .forward i {
+            margin-left: 15px;
+        }
+
+.btn-filter.active {
+    background-color: darkorange;
+    color: white;
+    border-radius: 1px;
+}
+
+.FooterLogo {
+    height: 70px;
+}
+
+.product-list .card {
+    -webkit-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 3px 0px rgba(0,0,0,0.75);
+}
+
+.wrapper {
+    padding-top: 120px;
+}
+
+.filterRow {
+    width: 90%;
+    margin: 0 auto;
+}
+
+
+.ClientContent {
+    margin-left: 0px !important;
+}
+
+.form-control {
+    color: black !important;
+    font-weight: bold;
+}
+
+body {
+    font-size: 0.8rem;
+    font-family: 'Barlow', sans-serif;
+    background-color: white;
+    color: #666464 !important;
+}
+
+.top-nav ul.top-menu > li > a:hover, .top-nav ul.top-menu > li > a:focus {
+    background-color: transparent !important;
+}
+
+.nav {
+    display: inline-flex;
+}
+
+.HomeContainer .row {
+    padding: 40px 0px;
+}
+
+.AddressesRow {
+    font-size: 0.8rem;
+}
+
+    .AddressesRow p {
+        line-height: 30px;
+    }
+
+.detalhesImgWrapper {
+    width: 100%;
+}
+
+.modal-body .form-group input[type="number"] {
+    border-bottom: none;
+}
+
+.IntroductionParagraph {
+    font-size: 0.8rem;
+    margin: 0 auto;
+    padding: 15px 0px;
+}
+
+.DigitalSpace {
+    width: 80%;
+    margin: 0;
+}
+
+    .DigitalSpace h4 {
+        font-size: 1rem;
+    }
+
+.btn-orange {
+    background-color: darkorange;
+    color: white !important;
+    border-radius: 0px;
+}
+
+.site-footer {
+    position: static;
+    padding: 60px 15vw;
+}
+
+    .site-footer p {
+        text-align: left;
+        margin-top: 25px;
+    }
+
+#Quantidade {
+    background-color: lightgray;
+}
+
+.cadastrese{
+    height:40px;
+}
+
+.socialMediaFooter {
+    cursor: pointer;
+    display: block;
+}
+
+    .socialMediaFooter i {
+        font-size: 1.3rem;
+        margin-right: 15px;
+        vertical-align:middle;
+    }
+
+.addressesFooter {
+    width: 250px;
+    margin: 0 auto;
+}
+
+.AddressParagraph {
+    line-height: 25px;
+}
+
+.detalheImgMini {
+    width: 60px;
+    display: inline-block;
+}
+
+.form-control[readonly] {
+    background-color: transparent;
+    border: none;
+}
+
+.thumbnail {
+    position: relative;
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+    .thumbnail img {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        height: 100%;
+        width: auto;
+        -webkit-transform: translate(-50%,-50%);
+        -ms-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%);
+    }
+
+        .thumbnail img.portrait {
+            width: 100%;
+            height: auto;
+        }
+
+.login-wrap .form-control, .modal-body .form-group {
+    border: none;
+    border-radius: 0px;
+    border-bottom: 1px solid black;
+    background: none;
+    margin-bottom: 15px;
+    font-size: 12px !important;
+    font-family: "Open Sans", 'sans-serif';
+}
+
+    .login-wrap .form-control:focus, .modal-body .form-group {
+        background: none;
+        border: none;
+    }
+
+        .login-wrap .form-control::placeholder, .modal-body .form-group::placeholder {
+            font-size: 12px !important;
+            font-family: "Open Sans", 'sans-serif';
+        }
+
+        .form-signin input[type="password"],
+        .form-signin input[type="text"],
+        .form-signin input[type="email"],
+        .modal-body .form-group input[type="text"],
+        .modal-body .form-group input[type="number"],
+        .modal-body .form-group input[type="password"],
+        .modal-body .form-group select,
+        .form-group textarea {
+            border: 1px solid transparent;
+            border-radius: 0px;
+            border-bottom: 1px solid black;
+            resize: none;
+            color: black !important;
+        }
+
+            .login-wrap input[type="password"]::placeholder,
+            .modal-body .form-group input[type="text"]::placeholder,
+            modal-body .form-group input[type="number"]::placeholder,
+            modal-body .form-group input[type="password"]::placeholder {
+                font-size: 13px;
+                font-family: "Open Sans", 'sans-serif';
+            }
+
+        .modal-body .form-group.OutOfGroup {
+            border-bottom: none;
+        }
+
+            .modal-body .form-group.OutOfGroup input[type="file"] {
+                border: none;
+            }
+
+.form-group label {
+    color: black;
+}
+
+.nav-item.active a {
+    color: darkorange;
+}
+
+.checkbox label, .login-wrap a {
+    color: darkorange;
+    font-weight: 500;
+}
+
+.adtocart {
+    background: darkorange;
+}
+
+.form-control:focus, #focusedInput {
+    border-color: black;
+}
+
+.login-wrap label {
+    margin-bottom: 0px;
+}
+
+.pro-d-title {
+    color: black;
+    font-size: 25px;
+}
+
+.DetalheParagraph, .QuantidadeProduto {
+    line-height: 20px;
+    margin: 25px 0px;
+    color: black;
+}
+
+.addCartBtn {
+    margin: 0 auto;
+    display: block;
+    background-color: lightgrey;
+}
+
+.PrecoProduto {
+    margin: 15px 0px;
+    color: black !important;
+    font-size: 20px;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.tablecenter th, .tablecenter td {
+    text-align: center;
+}
+
+.table-responsive {
+    overflow: auto !important;
+}
+
+.table {
+    min-width: 1000px;
+}
+
+.quantity {
+    border: 1px solid black;
+}
+
+.DesktopMenu a {
+    font-size: 1rem !important;
+}
+
+.DesktopMenu i {
+    font-size: 1.2rem !important;
+}
+
+.sidebar-toggle-box {
+    display: none;
+}
+
+.MobileMenu {
+    display: none !important;
+}
+
+.OrangeBox {
+    padding: 25px;
+    border: 1px solid darkorange;
+    margin-top: 25px;
+}
+
+    .OrangeBox .btn {
+        margin: 0 auto;
+        display: block;
+        margin-top: 15px;
+    }
+
+
+.DigitalSpaceImg {
+    width:100%;
+}
+
+@media only screen and (max-width: 1100px) {
+    .site-footer {
+        padding: 20px 4vw;
+    }
+}
+
+.imageHomeMob {
+    display: none;
+}
+
+.imageHomeDesk {
+    width: 100%;
+    object-fit: cover;
+}
+
+@media only screen and (max-width: 600px) {
+    .btnSlow {
+        margin: 0 auto;
+        display: block;
+    }
+
+    #sidebar > ul > li{
+        margin:0;
+    }
+
+    .sidebar-menu {
+      
+    }
+
+    .DigitalSpaceImg {
+        display: none;
+    }
+
+    .OndeEncontrar{
+        padding:25px;
+    }
+
+    .site-footer div div {
+        margin-top: 15px;
+    }
+
+    .vitrineNav {
+        text-align: center;
+    }
+
+    .imageHomeMob {
+        display: block;
+        width: 100%;
+        padding-top: 80px;
+    }
+
+    .imageHomeDesk {
+        display:none;
+    }
+
+    .IntroductionParagraph {
+        font-size: 1rem;
+        margin: 0 auto;
+        padding: 25px;
+    }
+
+    .DigitalSpace {
+        width: 80%;
+        margin: 0;
+    }
+
+        .DigitalSpace h4 {
+            font-size: 1rem;
+            padding: 0px 25px;
+        }
+
+    .vitrineimg {
+        height: 150px;
+    }
+
+    .container {
+        padding-top: 80px;
+    }
+
+    .DigitalSpace h4{
+        font-size:1.2rem;
+    }
+
+    .HomeContainer {
+        padding-top: 0px;
+    }
+
+    .card-body {
+        padding: 20px 5px 0px 5px;
+    }
+
+    ul.sidebar-menu {
+        margin-top: 105px !important;
+      
+    }
+
+    div#sidebar {
+        -webkit-box-shadow: 0px 1px 0px 0px rgba(0,0,0,0.75);
+        -moz-box-shadow: 0px 1px 0px 0px rgba(0,0,0,0.75);
+        box-shadow: 0px 1px 0px 0px rgba(0,0,0,0.75);
+    }
+
+    .wrapper {
+        padding: 120px 25px 0px 25px
+    }
+
+    .hidden-xs {
+        display: none;
+    }
+
+    .sidebar-toggle-box {
+        display: block;
+    }
+
+    .MobileMenu {
+        display: block !important;
+    }
+
+        .MobileMenu i {
+            font-size: 25px;
+            padding: 15px 0px;
+        }
+
+    .pro-d-title {
+        margin-top: 15px;
+    }
+
+    a.logo {
+        margin-left: 55px;
+    }
+
+    .sidebar-toggle-box {
+        font-size: 25px;
+        margin-top: 25px;
+    }
+
+        .sidebar-toggle-box .fa-bars {
+            font-size: 25px;
+        }
+
+    .DesktopMenu {
+        display: none !important;
+    }
+
+    .addCartBtn {
+        width: 100%;
+        color: black;
+    }
+}
+
+
+
+
+
+.prod-cat li ul li a:hover, .prod-cat li ul li a:focus, .prod-cat li ul li.active a, .prod-cat li a:hover, .prod-cat li a:focus, .prod-cat li a.active {
+    color: darkorange;
+}
+
+.tab-bg-dark-navy-blue {
+    background-color: darkorange;
+}
+
+.form-signin .checkbox {
+    display: flex;
+    justify-content: space-around !important;
+}
+
+    .form-signin .checkbox .pull-right a {
+        color: darkorange;
+    }
+
+.form-signin .btn-login, .btnSlow {
+    background: none;
+    color: black;
+    border: 1px solid black;
+    border-radius: 0px;
+    box-shadow: none;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.product_meta a, .pro-price {
+    color: darkorange;
+}
+
+.registration {
+    text-align: center;
+}
+
+    .registration a {
+        color: darkorange;
+    }
+
+ul.top-menu > li > a {
+    border: 0px !important;
+    padding-top: 11px !important;
+}
+
+    ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
+        border: none !important;
+    }
+
+ul.sidebar-menu li {
+    margin-right: 0px;
+    margin-bottom: 1px;
+}
+
+.light-sidebar-nav ul.sidebar-menu > li > a.active,
+.light-sidebar-nav ul.sidebar-menu > li > a:hover,
+.light-sidebar-nav ul.sidebar-menu > li > a:focus {
+    background: none;
+    border-left: none;
+    color: black;
+    border-radius: 0px;
+}
+
+.light-sidebar-nav ul.sidebar-menu li a {
+    border-radius: 0px !important;
+}
+
+ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
+    color: white !important;
+    background-color: darkorange !important;
+}
+
+ul.sidebar-menu {
+    margin-top: 61px;
+}
+
+
+
+label.btn.btn-primary.btn-xs.SlowEditBtn, label.btn.btn-primary.btn-xs.SlowDeleteBtn {
+    background-color: transparent;
+    border-color: black;
+    color: black;
+    margin-bottom: 0px;
+    padding: 0px 12px;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+label.btn.btn-primary.btn-xs.SlowDeleteBtn {
+    background-color: #ff6c60;
+    border-color: #ff6c60;
+    color: #FFFFFF;
+}
+
+.header, footer {
+    background-color: #F6F6F6;
+}
+
+.form-control[readonly] {
+    color: black !important;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: transparent;
+}
+
+.table td, .table th, .tabel tr, .table thead th {
+    border-top: none;
+    border-bottom: 1px solid black;
+}
+
+
+.modal-content.animated.bounceInRight {
+    border-radius: 0px;
+}
+
+.modal-header {
+    background: none;
+    color: black;
+}
+
+.btn.btn-white.btnCloseSlow, .btn.btn-primary.btnSaveSlow {
+    color: black;
+    background-color: transparent;
+    border: none;
+    border: 1px solid black;
+    border-radius: 0px;
+    transition: padding-bottom linear 2s;
+}
+
+    .btn.btn-white.btnCloseSlow:hover, .btn.btn-primary.btnSaveSlow:hover {
+    }
+
+
+#form-partial .modal-footer {
+    border-top: none;
+    height: 50px;
+}
+
+.containerDetalhamento {
+    max-width: none !important;
+    padding-top: 15px !important;
+}
+
+.wrapper.row {
+    padding-top: 30px !important;
+}
+
+.product-title {
+    font-size: 2.75rem;
+    margin-bottom: 1.3rem;
+}
+
+.price {
+    font-size: 1.7rem;
+}
+
+.product-description {
+    font-size: 1rem;
+}
+
+.QtdPedida {
+    margin-bottom: 1.5rem;
+}
+
+.product-list .price {
+    color: darkorange;
+}
+
+
+
+.card.border-dark.mb-3 .card-body.text-dark .btnArea {
+    display: flex;
+    justify-content: center;
+}
+
+.card.border-dark.mb-3 .card-body.text-dark p {
+    margin-bottom: 15px;
+}
+
+.card.border-dark.mb-3 .card-body.text-dark .btnArea a {
+    width: -webkit-fill-available;
+}
+
+.card-header {
+    border-bottom: 0px !important;
+    color: black;
+    font-weight: 600;
+}
+
+    .card-header img {
+        width: 370px;
+    }
+
+body {
+    color: #666464
+}
+
+a {
+    color: #666464 !important;
+}
+
+.card-title {
+    font-size: 25px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.priceProduct {
+    font-size: 23px;
+    font-weight: 600;
+}
+
+.btn-primary:not(:disabled):not(.disabled):active {
+    color: white !important;
+    background-color: black !important;
+    border-color: black !important;
+}
+
+.btn-primary:focus {
+    box-shadow: none !important;
+}
+
+.form-control.QtdSelector {
+    border-radius: 0px;
+    border-color: black;
+    color: black;
+}
+
+.add-to-cart.btn.btn-default.btnAddCart {
+    border-radius: 0px;
+    color: black;
+    border-color: black;
+    background-color: transparent;
+}

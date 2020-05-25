@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/kaliljoao/Projects/MyyCommerce/MyyCommerce/MyyCommerce.csproj": {}
+    "/Users/kaliljoao/Projects/MyCommerce/MyyCommerce/MyyCommerce/MyyCommerce.csproj": {}
   },
   "projects": {
-    "/Users/kaliljoao/Projects/MyyCommerce/MyyCommerce/MyyCommerce.csproj": {
+    "/Users/kaliljoao/Projects/MyCommerce/MyyCommerce/MyyCommerce/MyyCommerce.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/kaliljoao/Projects/MyyCommerce/MyyCommerce/MyyCommerce.csproj",
+        "projectUniqueName": "/Users/kaliljoao/Projects/MyCommerce/MyyCommerce/MyyCommerce/MyyCommerce.csproj",
         "projectName": "MyyCommerce",
-        "projectPath": "/Users/kaliljoao/Projects/MyyCommerce/MyyCommerce/MyyCommerce.csproj",
+        "projectPath": "/Users/kaliljoao/Projects/MyCommerce/MyyCommerce/MyyCommerce/MyyCommerce.csproj",
         "packagesPath": "/Users/kaliljoao/.nuget/packages/",
-        "outputPath": "/Users/kaliljoao/Projects/MyyCommerce/MyyCommerce/obj/",
+        "outputPath": "/Users/kaliljoao/Projects/MyCommerce/MyyCommerce/MyyCommerce/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"
@@ -54,10 +54,6 @@
               "target": "Package",
               "version": "[2.1.2, )"
             },
-            "Microsoft.EntityFrameworkCore.Design": {
-              "target": "Package",
-              "version": "[2.1.1, )"
-            },
             "Microsoft.EntityFrameworkCore.Sqlite": {
               "target": "Package",
               "version": "[2.1.14, )"
@@ -73,6 +69,10 @@
               "target": "Package",
               "version": "[2.1.0, )",
               "autoReferenced": true
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[2.1.10, )"
             },
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",

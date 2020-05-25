@@ -1,0 +1,100 @@
+@using Microsoft.AspNetCore.Identity
+@using MyyCommerce.Domain
+@using MyyCommerce.Models
+@using System.Security.Claims;
+@using MyyCommerce.Data;
+@using Microsoft.EntityFrameworkCore;
+
+@inject ApplicationDbContext db
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+<!--sidebar start-->
+<aside class="MobileMenu">
+    <div id="sidebar" class="nav-collapse ">
+        <!-- sidebar menu start-->
+        <ul class="sidebar-menu" id="nav-accordion">
+            <li>
+                <a class="@Html.IsSelected(controller: "Home", action:"Index")" href="@Url.Action("Index", "Home")">
+                    <span>Home</span>
+                </a>
+            </li>
+
+
+
+            @if (User.IsInRole("Slow"))
+            {
+                @*<li><a class="@Html.IsSelected(controller: "Turma")" asp-area="" asp-controller="Turma" asp-action="Index">Turmas</a></li>
+            <li><a class="@Html.IsSelected(controller: "Slowzinha")" asp-area="" asp-controller="Slowzinha" asp-action="Index">Slowzinhas</a></li>*@
+                <li>
+                    <a class="@Html.IsSelected(controller: "Produto", action:"Vitrine")" href="@Url.Action("Vitrine", "Produto")">
+                        <span>Vitrine</span>
+                    </a>
+                </li>
+                <li><a class="@Html.IsSelected(controller: "SlowUser")" asp-area="" asp-controller="SlowUser" asp-action="Index">Usuários Slow</a></li>
+                <li><a class="@Html.IsSelected(controller: "ClienteUser")" asp-area="" asp-controller="ClienteUser" asp-action="Index">Clientes</a></li>
+                <li><a class="@Html.IsSelected(controller: "Produto", action:"Index")" asp-area="" asp-controller="Produto" asp-action="Index">Produtos</a></li>
+                <li><a class="@Html.IsSelected(controller: "Pedido")" asp-area="" asp-controller="Pedido" asp-action="Index">Pedidos</a></li>
+            }
+            else if (User.IsInRole("Cliente"))
+            {
+                <li>
+                    <a class="@Html.IsSelected(controller: "Produto", action:"Vitrine")" href="@Url.Action("Vitrine", "Produto")">
+                        <span>Produtos</span>
+                    </a>
+                </li>
+                <li><a class="@Html.IsSelected(controller: "Home", action: "OndeEncontrar")" asp-area="" asp-controller="Home" asp-action="OndeEncontrar">Onde Encontrar</a></li>
+                <li><a class="@Html.IsSelected(controller: "Pedido")" asp-area="" asp-controller="Pedido" asp-action="Index">Meus Pedidos</a></li>
+
+            }
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <li>
+                    <a href="@Url.Action("Perfil", "User")">
+                        @UserManager.GetUserName(User)
+                    </a>
+                </li>
+                <li>
+                    <a href="~/Identity/Account/Login">
+                        Sair
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a class="@Html.IsSelected(controller: "Produto", action:"Vitrine")" href="@Url.Action("Vitrine", "Produto")">
+                        <span>Produtos</span>
+                    </a>
+                </li>
+                <li><a class="@Html.IsSelected(controller: "Home", action: "OndeEncontrar")" asp-area="" asp-controller="Home" asp-action="OndeEncontrar">Onde Encontrar</a></li>
+                <li>
+                    <a href="~/Identity/Account/Login">
+                        Login
+                    </a>
+                </li>
+            }
+
+
+
+            @*<li class="sub-menu">
+            <a href="javascript:;">
+                <i class="fa fa-laptop"></i>
+                <span>Layouts</span>
+            </a>
+            <ul class="sub">
+                <li><a href="boxed_page.html">Boxed Page</a></li>
+                <li><a href="horizontal_menu.html">Horizontal Menu</a></li>
+                <li><a href="header-color.html">Different Color Top bar</a></li>
+                <li><a href="mega_menu.html">Mega Menu</a></li>
+                <li><a href="language_switch_bar.html">Language Switch Bar</a></li>
+                <li><a href="email_template.html" target="_blank">Email Template</a></li>
+            </ul>
+        </li>*@
+
+
+        </ul>
+        <!-- sidebar menu end-->
+    </div>
+</aside>
+<!--sidebar end-->

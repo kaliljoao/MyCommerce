@@ -121,20 +121,41 @@ namespace MyyCommerce.Domain
             return null;
         }
 
-        public async void AdicionarProduto (ProdutoFormModel produtoModel) 
+        public void AdicionarProduto (ProdutoFormModel produtoModel) 
         {
             if (produtoModel.Produto.Fotos == null)
                 produtoModel.Produto.Fotos = new List<ProdutoImage>();
+
+            if (produtoModel.Produto.Id == 0)
+            {
+                db.Attach(produtoModel.Produto);
+            }
+            else
+            {
+                db.Update(produtoModel.Produto);
+            }
+
+            db.SaveChanges();
+
+            string path = "Uploads/" + produtoModel.Produto.Id;
+            if (!Directory.Exists("wwwroot/" + path))
+                Directory.CreateDirectory("wwwroot/" + path);
+
             foreach (IFormFile file in produtoModel.ProdutoImage)
             {
+                file.FileName.Replace(" ", "_");
+                var filePath = path + "/" + file.FileName;
+
                 ProdutoImage image = new ProdutoImage();
 
-                using (var memoryStream = new MemoryStream())
+                using (var stream = new FileStream("wwwroot/" + filePath, FileMode.Create))
                 {
-                    await file.CopyToAsync(memoryStream);
-                    image.Image = memoryStream.ToArray();
+                    produtoModel.ProdutoImage[0].CopyTo(stream);
+                    stream.Close();
                 }
-                image.Produto = produtoModel.Produto;
+
+                image.ProdutoId = produtoModel.Produto.Id;
+                image.Path = filePath;
                 produtoModel.Produto.Fotos.Add(image);
             }
             produtoModel.Produto.Ativo = true;

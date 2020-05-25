@@ -3,73 +3,80 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - MyyCommerce</title>
+    <title>Slow Digital</title>
 
-    <environment include="Development">
-        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="~/css/site.css" />
-    </environment>
-    <environment exclude="Development">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
-              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
-              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-    </environment>
+    <!-- Bootstrap core CSS -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/bootstrap-reset.css" rel="stylesheet">
+    <!--external css-->
+    <link href="~/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="~/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen" />
+    <link rel="stylesheet" href="~/css/owl.carousel.css" type="text/css">
+
+    <!--right slidebar-->
+    <link href="~/css/slidebars.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400&display=swap" rel="stylesheet">
+    <!-- Custom styles for this template -->
+
+    <link href="~/css/style.css" rel="stylesheet">
+    <link href="~/css/style-responsive.css" rel="stylesheet" />
+    <link href="~/customStyle.css" rel="stylesheet" />
+
+    <script src="~/js/jquery.js"></script>
+    <script src="~/js/jquery.unobtrusive-ajax.js"></script>
+
+    <script src="~/js/vendor/bootstrap-datepicker/bootstrap-datepicker.js"></script>
+    <link href="~/css/vendor/bootstrap-datepicker/bootstrap-datepicker3.css" rel="stylesheet" />
 </head>
-<body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">MyyCommerce</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                </ul>
-                <partial name="_LoginPartial" />
-            </div>
-        </div>
-    </nav>
+<body class="light-sidebar-nav">
 
-    <partial name="_CookieConsentPartial" />
+    <section id="container">
+        <!--header start-->
+        <header class="header">
+            <partial name="_Header" />
+        </header>
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2020 - MyyCommerce</p>
+        <partial name="_Navigation" />
+
+
+        <section id="main-content" class="ClientContent">
+            <section class="wrapper">
+                @RenderBody()
+            </section>
+        </section>
+
+        <footer class="site-footer">
+            
         </footer>
-    </div>
+        <!--footer end-->
+    </section>
 
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
-        </script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd">
-        </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>
+    <!-- js placed at the end of the document so the pages load faster -->
 
-    @RenderSection("Scripts", required: false)
+    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script class="include" type="text/javascript" src="~/js/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="~/js/jquery.scrollTo.min.js"></script>
+    <script src="~/js/jquery.nicescroll.js" type="text/javascript"></script>
+    <script src="~/js/jquery.sparkline.js" type="text/javascript"></script>
+    <script src="~/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.js"></script>
+    <script src="~/js/owl.carousel.js"></script>
+    <script src="~/js/jquery.customSelect.min.js"></script>
+    <script src="~/js/respond.min.js"></script>
+
+
+    <!--right slidebar-->
+    <script src="~/js/slidebars.min.js"></script>
+
+    <!--common script for all pages-->
+    <script src="~/js/common-scripts.js"></script>
+
+    <!--script for this page-->
+    <script src="~/js/sparkline-chart.js"></script>
+    <script src="~/js/easy-pie-chart.js"></script>
+    <script src="~/js/count.js"></script>
+
+
+
 </body>
 </html>
