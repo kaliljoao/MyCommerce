@@ -14,6 +14,16 @@
     background: none;
 }
 
+.loginButtonsSection {
+    display: flex !important;
+    justify-content: center !important;
+}
+
+.loginButtonsSection .btn.btn-default {
+    width: 200px;
+}
+
+
 .detalhesImgWrapper img, .detalheImgMini img {
     width: 100%;
     height: 0;
@@ -145,6 +155,10 @@ body {
     display: inline-flex;
 }
 
+.container.HomeContainer {
+    padding-top: 100px;
+}
+
 .HomeContainer .row {
     padding: 40px 0px;
 }
@@ -192,7 +206,7 @@ body {
 }
 
     .site-footer p {
-        text-align: left;
+        text-align: center;
         margin-top: 25px;
     }
 
@@ -342,6 +356,11 @@ body {
     line-height: 20px;
     margin: 25px 0px;
     color: black;
+    font-size: 1.1rem;
+}
+
+.DetalheParagraph {
+    margin-top: 15px;
 }
 
 .addCartBtn {

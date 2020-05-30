@@ -12,69 +12,89 @@
 
 
 
-<div class="sidebar-toggle-box">
-    <i class="fa fa-bars"></i>
-</div>
-<!--logo start-->
-<a href="/" class="logo"><h3>MyCommerce</h3></a>
-<!--logo end-->
+@if (!SignInManager.IsSignedIn(User))
+{
+    <a href="/" class="logo"><h3>MyCommerce</h3></a>
+}
+else {
+    <div class="sidebar-toggle-box">
+        <i class="fa fa-bars"></i>
+    </div>
 
+    <a href="/" class="logo"><h3>MyCommerce</h3></a>
 
-<div class="top-nav ">
-    <!--search & user info start-->
+    <div class="top-nav ">
+        <!--search & user info start-->
 
-    <ul class="nav top-menu">
-        @if (!User.IsInRole("Admin"))
-        {
-            <li class="DesktopMenu">
-                <a href="@Url.Action("Vitrine", "Produto")">
-                    Produtos
+        <ul class="nav top-menu">
+            @if (!User.IsInRole("Admin"))
+            {
+                <li class="DesktopMenu">
+                    <a href="@Url.Action("Index", "Pedido")">
+                        Meus Pedidos
+                    </a>
+                </li>
+                <li class="DesktopMenu">
+                    <a href="@Url.Action("Index", "Produto")">
+                        Produtos
+                    </a>
+                </li>
+
+            }
+            else
+            {
+                <li><a class="DesktopMenu @Html.IsSelected(controller: "Produto", action: "Index")" asp-area="" asp-controller="Produto" asp-action="Index">Produtos</a></li>
+                <li><a class="DesktopMenu @Html.IsSelected(controller: "Pedido")" asp-area="" asp-controller="Pedido" asp-action="Index">Pedidos</a></li>
+            }
+        </ul>
+        <ul class="nav pull-right top-menu">
+            @if (!User.IsInRole("Slow"))
+            {
+                <li class="DesktopMenu">
+                    <a href="@Url.Action("Index", "Checkout")">
+                        <i class="fa fa-shopping-cart"></i> Carrinho
+                    </a>
+                </li>
+            }
+            <li class="MobileMenu">
+                <a href="@Url.Action("Index", "Checkout")" style="font-size:1.2rem">
+                    <i class="fa fa-shopping-cart"></i>
                 </a>
             </li>
-            <li class="DesktopMenu">
-                <a href="@Url.Action("Index", "Pedido")">
-                    Meus Pedidos
-                </a>
-            </li>
 
-        }
-        else
-        {
-            <li><a class="DesktopMenu @Html.IsSelected(controller: "Produto", action:"Vitrine")" asp-area="" asp-controller="Produto" asp-action="Vitrine">Vitrine</a></li>
-            <li><a class="DesktopMenu @Html.IsSelected(controller: "Produto", action:"Index")" asp-area="" asp-controller="Produto" asp-action="Index">Produtos</a></li>
-            <li><a class="DesktopMenu @Html.IsSelected(controller: "Pedido")" asp-area="" asp-controller="Pedido" asp-action="Index">Pedidos</a></li>
-        }
-    </ul>
-    <ul class="nav pull-right top-menu">
-        @if (!User.IsInRole("Slow"))
-        {
-            <li class="DesktopMenu">
-                <a href="@Url.Action("Index", "Checkout")">
-                    <i class="fa fa-shopping-cart"></i> Carrinho
-                </a>
-            </li>
-        }
-        <li class="MobileMenu">
-            <a href="@Url.Action("Index", "Checkout")" style="font-size:1.2rem">
-                <i class="fa fa-shopping-cart"></i>
-            </a>
-        </li>
-
-        @if (SignInManager.IsSignedIn(User))
-        {
-            <li class="DesktopMenu">
-                <a href="~/Identity/Account/Login">
-                    Sair
-                </a>
-            </li>
-        }
-        else
-        {
-            <li class="DesktopMenu">
-                <a href="~/Identity/Account/Login">
-                    Login
-                </a>
-            </li>
-        }
-    </ul>
-</div>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <li class="DesktopMenu" style="padding-top: 18px;">
+                    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" id="logoutForm" method="post" class="navbar-right">
+                        <div class="navbar-right">
+                            <div class="user d-inline-block">
+                                <button class="btn btn-empty p-0" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    @if (SignInManager.IsSignedIn(User))
+                                    {
+                                        <span class="name">@UserManager.GetUserName(User)</span>
+                                        <div class="dropdown-menu dropdown-menu-right mt-3">
+                                            <a class="dropdown-item" href="javascript:{}" onclick="document.location.href = '/Identity/Account/Manage/ChangePassword'">Trocar Senha</a>
+                                            <a class="dropdown-item" href="javascript:{}" onclick="document.getElementById('logoutForm').submit();">Sair</a>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <a asp-area="Identity" asp-page="/Account/Login">Login</a>
+                                    }
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+            }
+            else
+            {
+                <li class="DesktopMenu">
+                    <a href="~/Identity/Account/Login">
+                        Login
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+}

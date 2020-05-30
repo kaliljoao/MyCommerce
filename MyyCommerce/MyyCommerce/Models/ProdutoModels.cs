@@ -31,6 +31,7 @@ namespace MyyCommerce.Models
     {
         public string FilterNome { get; set; }
         public eCategoria? FilterCategoria { get; set; }
+        public eGeneroProduto? FilterGenero{ get; set; }
         public bool? FilterAtivo { get; set; }
     }
 

@@ -2,39 +2,81 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using MyyCommerce.Data;
+using MyyCommerce.Domain;
 using MyyCommerce.Models;
+using MyyCommerce.Utils;
 
 namespace MyyCommerce.Controllers
 {
     [Authorize]
     public class PedidoController : Controller
     {
-        public IActionResult Index()
+        private readonly ApplicationDbContext db;
+
+        public PedidoController (ApplicationDbContext context)
         {
-            return View();
+            db = context;
         }
 
-        public IActionResult About()
+        public IActionResult Index(int? page)
         {
-            ViewData["Message"] = "Your application description page.";
-
-            return View();
+            return View(GetPedidoModel(page));
         }
 
-        public IActionResult Contact()
+        [HttpPost]
+        public IActionResult Filtrar(string DataPedidoFilter, string ClienteIdFilter)
         {
-            ViewData["Message"] = "Your contact page.";
+            var filterModel = new PedidosFilterModel()
+            {
+                ClienteIdFilter = ClienteIdFilter,
+                DataPedidoFilter = DataPedidoFilter
+            };
 
-            return View();
+            HttpContext.Session.SetComplexData("FilterModelPedido", filterModel);
+
+            ModelState.Clear();
+
+            return PartialView("_PedidosTablePartial", GetPedidoModel(1));
         }
 
-        public IActionResult Privacy()
+        [HttpGet]
+        public IActionResult Detalhar(int id)
         {
-            return View();
+            Pedido Pedido = db.Pedido.Where(x => x.Id == id).Include(x => x.ApplicationUser).Include(x => x.Produtos).FirstOrDefault();
+
+            foreach (var item in Pedido.Produtos)
+            {
+                item.Produto = db.Produtos.Where(x => x.Id == item.ProdutoId).FirstOrDefault();
+            }
+
+            return PartialView("_PedidoDetalhePartial", Pedido);
         }
+
+        public PedidosViewModel GetPedidoModel (int? page)
+        {
+            IQueryable<Pedido> pedidos = db.Pedido.Include(x => x.ApplicationUser);
+
+            if (User.IsInRole("Cliente"))
+            {
+                pedidos = pedidos.Where(x => x.ApplicationUserId == this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+            }
+
+            ViewBag.ApplicationUserId = new SelectList(db.Users.OrderBy(x => x.Nome).ToList(), "Id", "Nome");
+
+            PedidosViewModel model = new PedidosViewModel(pedidos, new Pager(pedidos.Count(), page));
+            return model;
+        }
+
+
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

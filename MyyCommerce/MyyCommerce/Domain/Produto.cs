@@ -10,6 +10,7 @@ namespace MyyCommerce.Domain
         public int Id { get; set; }
         public string Nome { get; set; }
         public eCategoria Categoria { get; set; }
+        public eGeneroProduto Genero { get; set; }
         public List<ProdutoImage> Fotos { get; set; }
 
 

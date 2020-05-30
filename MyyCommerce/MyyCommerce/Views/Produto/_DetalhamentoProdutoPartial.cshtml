@@ -1,0 +1,167 @@
+﻿@model MyyCommerce.Models.ProdutoDetalheModel;
+<!--toastr-->
+<link href="~/assets/toastr-master/toastr.css" rel="stylesheet" type="text/css" />
+<script src="~/assets/toastr-master/toastr.js"></script>
+
+<div class="row">
+    <div class="col-md-12">
+
+        <section class="card ">
+            <div class="card-body row" style="padding-top:0px">
+                <div class="col-md-12 ProductNavigation">
+                    @if (Model.ProdutoBack != null)
+                    {
+                        <a href="@Url.Action("Detalhar", "Produto", new { id = Model.ProdutoBack.Id })">
+                            <span class="back">
+                                <i class="fa fa-chevron-left"></i>
+                                @Model.ProdutoBack.Nome
+                            </span>
+                        </a>
+                    }
+                    @if (Model.ProdutoForward != null)
+                    {
+                        <a href="@Url.Action("Detalhar", "Produto", new { id = Model.ProdutoForward.Id })">
+                            <span class="forward">
+                                @Model.ProdutoForward.Nome
+                                <i class="fa fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    }
+                </div>
+                <div class="col-md-6">
+                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            @{ int i = 0; }
+                            @foreach (var foto in Model.Produto.Fotos)
+                            {
+                                <div class="carousel-item detalhesImgWrapper @(i == 0 ? "active" : "")">
+                                    <img class="img-fluid" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="background-image:url(../../@foto.Path)" alt="" />
+                                </div>
+
+                                {
+                                    i++;
+                                }
+                            }
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                    <div class="pro-img-list" style="margin:0">
+                        @foreach (var foto in Model.Produto.Fotos)
+                        {
+                            <div class="detalheImgMini">
+                                <img class="img-fluid" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="background-image:url(../../@foto.Path)" alt="" />
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h2> @Model.Produto.Nome</h2>
+                    <h4 class="PrecoProduto">Preço: R$ @Model.Produto.Valor.ToString("n2")</h4>
+                    <br />
+                    <br />
+                    <h4 class="DescricaoProduto">Descrição:</h4>
+                    <p class="DetalheParagraph">
+                        @Model.Produto.Descricao
+                    </p>
+                    <br />
+                    @if (DateTime.Now.Hour > 8 && DateTime.Now.Hour < 20)
+                    {
+                        <div class="QuantidadeProduto">
+                            Quantidade :
+                            <select name="Quantidade" id="Quantidade">
+                                @for (i = 1; i <= Model.Produto.QtdEstoque; i++)
+                                {
+                                    <option value="@i">@i</option>
+                                }
+                            </select>
+                        </div>
+                        <button data-id="@Model.Produto.Id" class="btn addCartBtn" type="button">Adicionar ao carrinho</button>
+                    }
+                    else
+                    {
+                        <p class="ClosedText">
+                            Estamos fechados por hoje!<br />
+                            Retorne amanhã entre 08:00 e 20:00!
+                        </p>
+                    }
+                </div>
+            </div>
+        </section>
+        <input value="@Model.Produto.Id" name="ProdutoId" id="ProdutoId" style="display:none" />
+    </div>
+</div>
+<!-- page end-->
+
+<script>
+    $('.addCartBtn').click(function () {
+        var $buttonClicked = $(this);
+        var id = $buttonClicked.attr('data-id');
+
+        var qtd = document.getElementById("Quantidade").value;
+        console.log(qtd);
+
+            $.ajax({
+                url: '@Url.Action("AdicionarNoCarrinho", "Produto")',
+                type: 'GET',
+                data: { ProdutoId: id, Quantidade: qtd },
+                success: function (partialView) {
+                    toastr["success"]("Produto adicionado ao carrinho", "Sucesso!");
+                    $("#Quantidade").val('1')
+                }
+            });
+
+     });
+
+    toastr.options = {
+            "closeButton": false,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-bottom-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
+    $("#formCarrinho").on("submit", function (e) {
+            e.preventDefault();
+
+            var formURL = $(this).attr("action");
+            var form = $(this);
+            var formdata = false;
+            if (window.FormData) {
+                formdata = new FormData(form[0]);
+            }
+
+            $.ajax({
+                url: formURL,
+                type: "POST",
+                cache: false,
+                data: formdata ? formdata : form.serialize(),
+                contentType: false,
+                processData: false,
+                success: function (html, textStatus, jqXHR) {
+                     toastr["success"]("Produto adicionado ao carrinho", "Sucesso!");
+                     $("#Quantidade").val('')
+                },
+                error: function (jqXHR, status, error) {
+                    console.log(status + ": " + error);
+                }
+            });
+        });
+
+</script>

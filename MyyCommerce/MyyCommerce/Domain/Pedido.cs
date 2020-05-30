@@ -35,6 +35,7 @@ namespace MyyCommerce.Domain
         public string ApplicationUserId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
         public List<ProdutoPedido> Produtos { get; set; }
+        public eStatusPagamento StatusPagamento { get; set; }
 
         public bool isFinalizado { get; set; }
     }

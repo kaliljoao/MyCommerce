@@ -23,10 +23,11 @@ namespace MyyCommerce.Controllers
         {
             db = context;
         }
+
         public IActionResult Index(eCategoria? Categoria, int? page)
         {
             IQueryable<Produto> produtos = db.Produtos.Where(x => x.Ativo == true && x.QtdEstoque > 0).Include(x => x.Fotos);
-
+            Categoria = eCategoria.Camisa;
             if (Categoria != null)
             {
                 produtos = produtos.Where(x => x.Categoria == Categoria.Value);
@@ -36,29 +37,7 @@ namespace MyyCommerce.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public IActionResult Filtrar(string busca, eCategoria? Categoria)
-        {
-            IQueryable<Produto> produtos = db.Produtos.Where(x => x.Ativo == true && x.QtdEstoque > 0).Include(x => x.Fotos);
-
-            if (Categoria != null)
-            {
-                produtos = produtos.Where(x => x.Categoria == Categoria.Value);
-            }
-            if (busca != null)
-            {
-                produtos = produtos.Where(x => x.Nome.ToUpper().Contains(busca.ToUpper()));
-            }
-
-            HomeViewModel model = new HomeViewModel(produtos, new Pager(produtos.Count(), null), Categoria);
-
-            return PartialView("_VitrinePartial", model);
-        }
-
-        public IActionResult OndeEncontrar()
-        {
-            return View();
-        }
+        
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -136,7 +136,6 @@ namespace MyyCommerce.Controllers
             {
                 page = 1;
             }
-            HttpContext.Session.SetInt32("ProdutoPage", page.Value);
 
             IQueryable<Produto> produtos = db.Produtos;
 
@@ -156,6 +155,11 @@ namespace MyyCommerce.Controllers
                 if (filterModel.FilterAtivo != null)
                 {
                     produtos = produtos.Where(x => x.Ativo == filterModel.FilterAtivo);
+                }
+
+                if (filterModel.FilterGenero != null)
+                {
+                    produtos = produtos.Where(x => x.Genero == filterModel.FilterGenero);
                 }
             }
 

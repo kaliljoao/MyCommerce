@@ -138,7 +138,7 @@ WriteAttributeValue("", 1174, Url.Action("Vitrine", "Produto"), 1174, 33, false)
             WriteLiteral(">\n                        <span>Vitrine</span>\n                    </a>\n                </li>\n                <li>");
             EndContext();
             BeginContext(1322, 126, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4ca29542979e4a4aba3e7699a50de973", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "52c91cc77eb54e07bd183cc5c1e25518", async() => {
                 BeginContext(1431, 13, true);
                 WriteLiteral("Usuários Slow");
                 EndContext();
@@ -171,7 +171,7 @@ AddHtmlAttributeValue("", 1332, Html.IsSelected(controller: "SlowUser"), 1332, 4
             WriteLiteral("</li>\n                <li>");
             EndContext();
             BeginContext(1474, 127, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b0a7d0c7f6f84092bc72149536fd7924", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1791ca870a6843d583bcc3d36b2ce528", async() => {
                 BeginContext(1589, 8, true);
                 WriteLiteral("Clientes");
                 EndContext();
@@ -204,7 +204,7 @@ AddHtmlAttributeValue("", 1484, Html.IsSelected(controller: "ClienteUser"), 1484
             WriteLiteral("</li>\n                <li>");
             EndContext();
             BeginContext(1627, 135, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2e5917548c1544d5935da15c6c614d6f", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "23ecbc31de734692a60b16879bebc935", async() => {
                 BeginContext(1750, 8, true);
                 WriteLiteral("Produtos");
                 EndContext();
@@ -237,7 +237,7 @@ AddHtmlAttributeValue("", 1637, Html.IsSelected(controller: "Produto", action:"I
             WriteLiteral("</li>\n                <li>");
             EndContext();
             BeginContext(1788, 116, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "71be519416a54cba96da445485c36615", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0d86469acc8148bda8e83feba2fe897e", async() => {
                 BeginContext(1893, 7, true);
                 WriteLiteral("Pedidos");
                 EndContext();
@@ -297,7 +297,7 @@ WriteAttributeValue("", 2101, Url.Action("Vitrine", "Produto"), 2101, 33, false)
             WriteLiteral(">\n                        <span>Produtos</span>\n                    </a>\n                </li>\n                <li>");
             EndContext();
             BeginContext(2250, 152, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "98077543814443a6978d64195d919eb7", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8e8b59824b4d4c58976d875a71ac0bf1", async() => {
                 BeginContext(2384, 14, true);
                 WriteLiteral("Onde Encontrar");
                 EndContext();
@@ -330,7 +330,7 @@ AddHtmlAttributeValue("", 2260, Html.IsSelected(controller: "Home", action: "Ond
             WriteLiteral("</li>\n                <li>");
             EndContext();
             BeginContext(2428, 121, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1921f0d4fd244048a323d5de42d1672e", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4c8a93b0e79042a2881785eec6600c79", async() => {
                 BeginContext(2533, 12, true);
                 WriteLiteral("Meus Pedidos");
                 EndContext();
@@ -401,7 +401,7 @@ WriteAttributeValue("", 2683, Url.Action("Perfil", "User"), 2683, 29, false);
             WriteLiteral("\n                    </a>\n                </li>\n                <li>\n                    ");
             EndContext();
             BeginContext(2858, 89, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1b39169bb8c046689a85969631c94c09", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "da3c20d8e0444882b324af69921b64d3", async() => {
                 BeginContext(2893, 50, true);
                 WriteLiteral("\n                        Sair\n                    ");
                 EndContext();
@@ -449,7 +449,7 @@ WriteAttributeValue("", 3131, Url.Action("Vitrine", "Produto"), 3131, 33, false)
             WriteLiteral(">\n                        <span>Produtos</span>\n                    </a>\n                </li>\n                <li>");
             EndContext();
             BeginContext(3280, 152, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7f27360c9ec1461eab7daac5babb1f72", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "dfca4b82c0d44c1fbf5b53174783d87c", async() => {
                 BeginContext(3414, 14, true);
                 WriteLiteral("Onde Encontrar");
                 EndContext();
@@ -482,7 +482,7 @@ AddHtmlAttributeValue("", 3290, Html.IsSelected(controller: "Home", action: "Ond
             WriteLiteral("</li>\n                <li>\n                    ");
             EndContext();
             BeginContext(3479, 90, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4cd5647f574f41aea07f07a0b91a72c4", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4b5995955f1644058a462f9cc2eb40ea", async() => {
                 BeginContext(3514, 51, true);
                 WriteLiteral("\n                        Login\n                    ");
                 EndContext();

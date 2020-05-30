@@ -209,6 +209,8 @@ namespace MyyCommerce.Data.Migrations
 
                     b.Property<string>("Numero");
 
+                    b.Property<int>("StatusPagamento");
+
                     b.Property<int>("StatusPedido");
 
                     b.Property<int>("TipoEntrega");
@@ -233,6 +235,8 @@ namespace MyyCommerce.Data.Migrations
 
                     b.Property<string>("Descricao");
 
+                    b.Property<int>("Genero");
+
                     b.Property<string>("Ingredientes");
 
                     b.Property<string>("Nome");
@@ -251,7 +255,7 @@ namespace MyyCommerce.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<byte[]>("Image");
+                    b.Property<string>("Path");
 
                     b.Property<int>("ProdutoId");
 

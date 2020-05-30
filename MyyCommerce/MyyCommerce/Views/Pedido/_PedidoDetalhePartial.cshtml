@@ -1,0 +1,78 @@
+﻿@model MyyCommerce.Domain.Pedido;
+@{
+    ViewData["Title"] = "_ProdutoFormPartial";
+}
+
+<div class="modal-header">
+    <h4 class="modal-title">Detalhar Pedido</h4>
+</div>
+
+<div class="modal-body">
+    <div class="form-group enderecoGroup">
+        <label for="exampleInputEmail1">Número</label>
+        <input class="form-control" readonly="readonly" value="@Model.Id">
+    </div>
+    <div class="form-group enderecoGroup">
+        <label for="exampleInputEmail1">Cliente</label>
+        <input class="form-control" readonly="readonly" value="@(Model.ApplicationUser.Nome != null ? Model.ApplicationUser.Nome + " " + Model.ApplicationUser.Sobrenome : "")">
+    </div>
+    <div class="form-group enderecoGroup">
+        <label for="exampleInputEmail1">Data Pedido</label>
+        <input class="form-control" readonly="readonly" value="@Model.DataPedido.ToString("dd/MM/yyyy")">
+    </div>
+    <div class="form-group enderecoGroup">
+        <label for="exampleInputEmail1">Data Entrega</label>
+        <input class="form-control" value="@Model.DataEntrega.ToString("dd/MM/yyyy")" readonly="readonly">
+    </div>
+    <div class="form-group enderecoGroup">
+        <label for="exampleInputEmail1">Status</label>
+        <input class="form-control" value="@Model.StatusPedido.ToString()" readonly="readonly">
+    </div>
+    <div class="form-group enderecoGroup">
+        <label for="exampleInputEmail1">Entrega</label>
+        <input class="form-control" readonly="readonly" value="@Model.TipoEntrega.ToString()">
+    </div>
+    @*@if (Model.TipoEntrega == MyyCommerce.Utils.Enums.eTipoEntrega.Delivery)
+    {
+        <div class="form-group enderecoGroup">
+            <label for="exampleInputEmail1">Cep</label>
+            <input class="form-control" value="@Model.CepEntrega" readonly="readonly">
+        </div>
+        <div class="form-group enderecoGroup">
+            <label for="exampleInputEmail1">Endereço</label>
+            <input class="form-control" value="@Model.EnderecoEntrega" readonly="readonly">
+        </div>
+        <div class="form-group enderecoGroup">
+            <label for="exampleInputEmail1">Número</label>
+            <input class="form-control" value="@Model.NumEntrega" readonly="readonly">
+        </div>
+        <div class="form-group enderecoGroup">
+            <label for="exampleInputEmail1">Complemento</label>
+            <input class="form-control" value="@Model.ComplementoEntrega" readonly="readonly">
+        </div>
+    }*@
+    <div class="form-group enderecoGroup">
+        <label for="exampleInputEmail1" class="bold">Produtos</label>
+        <table class="table tablecenter">
+            <tr>
+                <th>Produto</th>
+                <th>Quantidade</th>
+            </tr>
+            @foreach (var item in Model.Produtos)
+            {
+                <tr>
+                    <td>@item.Produto.Nome</td>
+                    <td>@item.Quantidade</td>
+                </tr>
+            }
+        </table>
+    </div>
+
+
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-white btnCloseSlow" data-dismiss="modal">Fechar</button>
+    <button type="submit" class="btn btn-primary btnSaveSlow">Salvar</button>
+</div>
+

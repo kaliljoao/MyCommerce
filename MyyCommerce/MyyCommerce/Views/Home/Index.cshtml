@@ -1,4 +1,5 @@
-﻿@{
+﻿@model MyyCommerce.Models.HomeViewModel;
+@{
     Layout = "";
 }
 @using Microsoft.AspNetCore.Identity;
@@ -38,8 +39,6 @@
     <script src="~/js/jquery.js"></script>
     <script src="~/js/jquery.unobtrusive-ajax.js"></script>
 
-    <script src="~/js/vendor/bootstrap-datepicker/bootstrap-datepicker.js"></script>
-    <link href="~/css/vendor/bootstrap-datepicker/bootstrap-datepicker3.css" rel="stylesheet" />
 </head>
 
 <body class="light-sidebar-nav">
@@ -55,17 +54,46 @@
 
         <section id="main-content" class="ClientContent">
             <div class="container HomeContainer">
-                
-               
+
+                @if (Model.Produtos.Where(x => x.Categoria == MyyCommerce.Utils.Enums.eCategoria.Camisa).Count() > 0)
+                {
+                    <h4>Camisas</h4>
+                    <div class="row product-list">
+                        @foreach (MyyCommerce.Domain.Produto produto in Model.Produtos.Where(x => x.Categoria == MyyCommerce.Utils.Enums.eCategoria.Camisa @*&& x.Fotos.Count > 0*@))
+                        {
+                            <div class="col-md-4">
+                                <section class="card">
+                                    <div class="pro-img-box vitrineimg">
+                                        <div class="detalhesImgWrapper">
+                                            <a href="@Url.Action("Detalhar", "Produto", new { id = produto.Id })">
+                                                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="background-image:url(@produto.Fotos[0].Path)" />
+                                            </a>
+                                        </div>
+                                        <a href="@Url.Action("Detalhar", "Produto", new { id = produto.Id })" class="adtocart">
+                                            <i class="fa fa-shopping-cart"></i>
+                                        </a>
+                                    </div>
+
+                                    <div class="card-body text-center">
+                                        <h4>
+                                            <a href="@Url.Action("Detalhar", "Produto", new { id = produto.Id })" class="pro-title">
+                                                @produto.Nome
+                                            </a>
+                                        </h4>
+                                        <p class="price">R$ @produto.Valor.ToString("n2")</p>
+                                    </div>
+                                </section>
+                            </div>
+                        }
+                    </div>
+                }
+
             </div>
         </section>
         <!--main content end-->
         <!-- Right Slidebar start -->
         <!-- Right Slidebar end -->
         <!--footer start-->
-        <footer class="site-footer">
-            
-        </footer>
         <!--footer end-->
     </section>
 

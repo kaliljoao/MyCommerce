@@ -28,5 +28,7 @@
 
   <ItemGroup>
     <Folder Include="Domain\" />
+    <Folder Include="Views\Produto\" />
+    <Folder Include="Views\Pedido\" />
   </ItemGroup>
 </Project>

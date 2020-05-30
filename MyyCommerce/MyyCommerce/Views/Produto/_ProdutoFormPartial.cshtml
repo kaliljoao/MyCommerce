@@ -1,0 +1,85 @@
+﻿@model MyyCommerce.Models.ProdutoFormModel;
+@{
+    ViewData["Title"] = "_ProdutoFormPartial";
+}
+
+<div class="modal-header">
+    @if (Model.Produto.Id == 0)
+    {
+        <h4 class="modal-title">Adicionar Produto</h4>
+    }
+    else
+    {
+        <h4 class="modal-title">Editar Produto</h4>
+    }
+</div>
+
+<div class="modal-body">
+    <div class="form-group"><label>Nome</label>@Html.TextBoxFor(m => m.Produto.Nome, new { @class = "form-control", autocomplete = "off", placeholder = "Nome", required = "required" })</div>
+    <div class="form-group"><label>Categoria</label><select class="form-control" asp-for="Produto.Categoria" asp-items="Html.GetEnumSelectList(typeof(MyyCommerce.Utils.Enums.eCategoria))"></select></div>
+    <div class="form-group"><label>Gênero</label><select class="form-control" asp-for="Produto.Genero" asp-items="Html.GetEnumSelectList(typeof(MyyCommerce.Utils.Enums.eGeneroProduto))"></select></div>
+    <div class="form-group"><label>Descrição</label>@Html.TextAreaFor(m => m.Produto.Descricao, new { @class = "form-control", autocomplete = "off", placeholder = "Descrição", required = "required", rows = "3" })</div>
+    <div class="form-group"><label>Valor</label> @Html.TextBoxFor(m => m.Produto.Valor, new { @class = "form-control", autocomplete = "off", type = "number", min = "0", step = "0.01", placeholder = "Valor", required = "required" })</div>
+    <div class="form-group"><label>Qtd. no Estoque</label> @Html.TextBoxFor(m => m.Produto.QtdEstoque, new { @class = "form-control", autocomplete = "off", type = "number", min = "0", placeholder = "Quantidade no Estoque", required = "required" })</div>
+    <div class="form-group">
+        <select class="form-control" asp-for="Produto.Ativo">
+            <option value="true">Ativo</option>
+            <option value="false">Inativo</option>
+        </select>
+    </div>
+    <div class="form-group OutOfGroup">
+        <label>Fotos</label>
+        <input class="form-control" asp-for="ProdutoImage" type="file" value="Upload" multiple="multiple" />
+    </div>
+    <table class="table tablecenter" style="min-width:300px;">
+        <tr>
+            <th>Foto</th>
+            <th>Ação</th>
+        </tr>
+        @if (Model.Produto != null && Model.Produto.Fotos != null)
+        {
+
+            @foreach (var item in Model.Produto.Fotos)
+            {
+                <tr>
+                    <td class="detalheImgMini" style="width:100%"> <img class="img-fluid" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="background-image:url(../../@item.Path)" alt="" /></td>
+                    <td><label data-id="@item.Id" class="btn btn-primary btn-xs SlowDeleteBtn" style="margin-top: 50%;"><span><i class="fa fa-trash-o"></i> </span></label></td>
+                </tr>
+            }
+        }
+    </table>
+    @Html.TextBoxFor(m => m.Produto.Id, new { @class = "form-control", autocomplete = "off", placeholder = "Id", Style = "display:none" })
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-white btnCloseSlow" data-dismiss="modal">Fechar</button>
+    <button type="submit" class="btn btn-primary btnSaveSlow">Salvar</button>
+</div>
+
+<script>
+    function getConfirmationFoto() {
+        var retVal = confirm("Tem certeza que deseja remover essa Foto?");
+        if (retVal == true) {
+            return true;
+        }
+        else {
+            return false;
+        }
+     }
+
+     $('.SlowDeleteBtn').click(function () {
+        var $buttonClicked = $(this);
+        var id = $buttonClicked.attr('data-id');
+
+         if (getConfirmationFoto()) {
+            $.ajax({
+                url: '@Url.Action("DeletarFoto", "Produto")',
+                type: 'GET',
+                data: { id: id },
+                success: function (partialView) {
+                    $('#form-partial').html(partialView);
+                }
+            });
+        }
+     });
+</script>
