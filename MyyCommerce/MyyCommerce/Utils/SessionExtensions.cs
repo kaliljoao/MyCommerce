@@ -14,7 +14,9 @@ namespace MyyCommerce.Utils
         public static T GetObjectFromJson<T>(this ISession session, string key)
         {
             var value = session.GetString(key);
-            return value == null ? default(T) : JsonConvert.DeserializeObject<T>(value);
+            if(value.StartsWith('['))
+                value = value.Substring(1, value.Length - 2);
+            return (value == null || value == "{}")? default(T) : JsonConvert.DeserializeObject<T>(value);
         }
 
         public static T GetComplexData<T>(this ISession session, string key)

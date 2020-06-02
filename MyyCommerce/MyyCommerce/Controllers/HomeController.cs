@@ -9,8 +9,10 @@ using Microsoft.EntityFrameworkCore;
 using MyyCommerce.Data;
 using MyyCommerce.Domain;
 using MyyCommerce.Models;
+using Microsoft.AspNetCore.Http;
 using MyyCommerce.Utils;
 using MyyCommerce.Utils.Enums;
+using Microsoft.AspNetCore.Identity;
 
 namespace MyyCommerce.Controllers
 {
@@ -18,14 +20,21 @@ namespace MyyCommerce.Controllers
     public class HomeController : Controller
     {
         private readonly ApplicationDbContext db;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public HomeController(ApplicationDbContext context)
+        public HomeController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             db = context;
+            _userManager = userManager;
         }
 
-        public IActionResult Index(eCategoria? Categoria, int? page)
+        public async Task<IActionResult> Index(eCategoria? Categoria, int? page)
         {
+            
+            HttpContext.Session.SetComplexData("CarrinhoDb", db.PedidosCarrinho.Where(x => x.UserId == _userManager.GetUserAsync(HttpContext.User).Result.Id)
+                .Include(x => x.Produtos)
+            );
+
             if (Categoria != null)
             {
                 IQueryable<Produto> produtos = db.Produtos.Where(x => x.Ativo == true && x.QtdEstoque > 0).Include(x => x.Fotos);

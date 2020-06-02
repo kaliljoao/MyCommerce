@@ -107,17 +107,17 @@ namespace MyyCommerce.Controllers
                 ProdutoString = ""
             };
 
-            if (HttpContext.Session.GetObjectFromJson<List<ProdutoPedido>>("Carrinho") != null)
+            if (HttpContext.Session.GetObjectFromJson<PedidoCarrinho>("CarrinhoDb") != null)
             {
-                model.Produtos = HttpContext.Session.GetObjectFromJson<List<ProdutoPedido>>("Carrinho");
+                model.Carrinho = HttpContext.Session.GetObjectFromJson<PedidoCarrinho>("CarrinhoDb");
             }
             else
             {
-                model.Produtos = new List<ProdutoPedido>();
+                model.Carrinho = new PedidoCarrinho();
             }
 
             int i = 1;
-            foreach (var item in model.Produtos)
+            foreach (var item in model.Carrinho.Produtos)
             {
                 item.Produto = db.Produtos.Where(x => x.Id == item.ProdutoId).FirstOrDefault();
                 if (item.Produto != null)

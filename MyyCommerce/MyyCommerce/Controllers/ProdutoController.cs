@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyyCommerce.Data;
@@ -20,10 +21,13 @@ namespace MyyCommerce.Controllers
     {
         private readonly ApplicationDbContext db;
         private ApplicationUser applicationUser = new ApplicationUser();
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ProdutoController(ApplicationDbContext context)
+
+        public ProdutoController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             db = context;
+            _userManager = userManager;
         }
 
         public IActionResult Index(int? page)
@@ -166,7 +170,56 @@ namespace MyyCommerce.Controllers
             return new ProdutoViewModel(produtos, new Pager(produtos.Count(), page));
         }
 
+        public IActionResult AdicionarNoCarrinho(int ProdutoId, int Quantidade)
+        {
+            PedidoCarrinho carrinho = HttpContext.Session.GetObjectFromJson<PedidoCarrinho>("CarrinhoDb");
+            if (carrinho == null)
+                carrinho = new PedidoCarrinho() { Produtos = new List<ProdutoCarrinho>() };
 
+            var produtoEmCarrinho = carrinho.Produtos.Where(x => x.ProdutoId == ProdutoId).FirstOrDefault();
+            if (produtoEmCarrinho != null)
+            {
+                produtoEmCarrinho.Quantidade += Quantidade;
+            }
+            else
+            {
+                ProdutoCarrinho produtoCarrinho = new ProdutoCarrinho() { ProdutoId = ProdutoId, Quantidade = Quantidade };
+                carrinho.Produtos.Add(produtoCarrinho);
+            }
+
+            //var produto = db.Produtos.Where(x => x.Id == ProdutoId).FirstOrDefault();
+            //produto.QtdEstoque -= Quantidade;
+            //db.Update(produto);
+            //db.SaveChanges();
+
+            PedidoCarrinho pedidoCarrinho = db.PedidosCarrinho.Where(x => x.UserId == _userManager.GetUserAsync(HttpContext.User).Result.Id)
+                .Include(x => x.Produtos)
+                .FirstOrDefault();
+
+            if (pedidoCarrinho == null)
+            {
+                carrinho.UserId = _userManager.GetUserAsync(HttpContext.User).Result.Id;
+                db.Add(carrinho);
+            }
+            else
+            {
+                carrinho.Produtos.ForEach(prod => {
+                    pedidoCarrinho.Produtos.ForEach(p => {
+                        if(prod.ProdutoId == p.ProdutoId)
+                        {
+                            p.Quantidade = prod.Quantidade;
+                        }
+                    });
+                });
+                db.Update(pedidoCarrinho);
+            }
+            db.SaveChanges();
+
+
+            HttpContext.Session.SetInt32("CartNumber", carrinho.Produtos.Count());
+            HttpContext.Session.SetComplexData("CarrinhoDb", carrinho);
+            return Ok(carrinho.Produtos.Count().ToString());
+        }
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

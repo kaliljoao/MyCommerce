@@ -10,6 +10,7 @@ namespace MyyCommerce.Models
 {
     public class CheckoutViewModel
     {
+        public PedidoCarrinho Carrinho { get; set; }
         public List<ProdutoPedido> Produtos { get; set; }
         public double ValorTotal { get; set; }
         public double PrecoEntrega { get; set; }
