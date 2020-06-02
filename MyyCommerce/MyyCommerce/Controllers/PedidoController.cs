@@ -68,8 +68,10 @@ namespace MyyCommerce.Controllers
             {
                 pedidos = pedidos.Where(x => x.ApplicationUserId == this.User.FindFirstValue(ClaimTypes.NameIdentifier));
             }
-
-            ViewBag.ApplicationUserId = new SelectList(db.Users.OrderBy(x => x.Nome).ToList(), "Id", "Nome");
+            else
+            {
+                ViewBag.ApplicationUserId = new SelectList(db.Users.OrderBy(x => x.Nome).ToList(), "Id", "Nome");
+            }
 
             PedidosViewModel model = new PedidosViewModel(pedidos, new Pager(pedidos.Count(), page));
             return model;

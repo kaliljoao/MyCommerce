@@ -11,15 +11,20 @@
             </div>
             <form asp-action="Filtrar" asp-controller="Pedido" id="regForm" method="POST" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#form-div-produto">
                 <div class="row">
-
+                    <div class="form-group col-md-1" style="padding-top: 5px;">
+                        <h5>Filtro:</h5>
+                    </div>
                     <div class="form-group col-md-3 ">
                         <input class="form-control date-picker" id="DataPedidoFilter" name="DataPedidoFilter" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
                     </div>
-                    <div class="form-group col-md-3">
-                        <select class="form-control" id="ClienteIdFilter" name="ClienteIdFilter" asp-items="ViewBag.ApplicationUserId">
-                            <option value="">Selecione</option>
-                        </select>
-                    </div>
+                    @if(User.IsInRole("Admin"))
+                    {
+                        <div class="form-group col-md-3">
+                            <select class="form-control" id="ClienteIdFilter" name="ClienteIdFilter" asp-items="ViewBag.ApplicationUserId">
+                                <option value="">Selecione</option>
+                            </select>
+                        </div>
+                    }
                     <div class="form-group col-md-3">
                         <button type="submit" class="btn btn-primary btnSaveSlow">Buscar</button>
                     </div>

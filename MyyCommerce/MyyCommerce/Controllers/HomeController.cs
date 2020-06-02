@@ -26,18 +26,24 @@ namespace MyyCommerce.Controllers
 
         public IActionResult Index(eCategoria? Categoria, int? page)
         {
-            IQueryable<Produto> produtos = db.Produtos.Where(x => x.Ativo == true && x.QtdEstoque > 0).Include(x => x.Fotos);
-            Categoria = eCategoria.Camisa;
             if (Categoria != null)
             {
-                produtos = produtos.Where(x => x.Categoria == Categoria.Value);
+                IQueryable<Produto> produtos = db.Produtos.Where(x => x.Ativo == true && x.QtdEstoque > 0).Include(x => x.Fotos);
+            
+                if (Categoria != null)
+                {
+                    produtos = produtos.Where(x => x.Categoria == Categoria.Value);
+                }
+
+                HomeViewModel model = new HomeViewModel(produtos, new Pager(produtos.Count(), page), Categoria);
+                return View(model);
             }
-
-            HomeViewModel model = new HomeViewModel(produtos, new Pager(produtos.Count(), page), Categoria);
-            return View(model);
+            else
+            {
+                IQueryable<Produto> produtos = db.Produtos.Where(x => x.Ativo == true && x.QtdEstoque > 0).Include(x => x.Fotos);
+                return View(new HomeViewModel());
+            }
         }
-
-        
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

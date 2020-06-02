@@ -1,0 +1,51 @@
+﻿@model MyyCommerce.Models.CheckoutViewModel;
+
+
+<table class="table table-hover p-table tablecenter">
+    <thead>
+        <tr>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Valor Unitário</th>
+            <th>Valor Total</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var produto in Model.Produtos)
+        {
+            <tr>
+                <td class="p-name">
+                    @produto.Produto.Nome
+                </td>
+                <td class="p-team">
+                    @produto.Quantidade
+                </td>
+                <td class="p-progress">
+                    R$ @produto.Produto.Valor.ToString("n2")
+                </td>
+                <td>
+                    R$ @((produto.Quantidade * produto.Produto.Valor).ToString("n2"))
+                </td>
+                <td>
+                    <a href="#" class="btn btn-danger btn-sm removerProdutoBtn" data-id="@produto.ProdutoId"><i class="fa fa-times"></i> Remover </a>
+                </td>
+            </tr>
+        }
+        <tr>
+            <td class="bold">
+                Total
+            </td>
+            <td>
+            </td>
+            <td>
+            </td>
+            <td class="bold">
+                R$ @Model.ValorTotal.ToString("n2")
+            </td>
+            <td>
+            </td>
+        </tr>
+
+    </tbody>
+</table>

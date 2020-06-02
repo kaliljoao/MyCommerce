@@ -9,6 +9,11 @@ namespace MyyCommerce.Models
 {
     public class HomeViewModel
     {
+        public HomeViewModel()
+        {
+
+        }
+
         public HomeViewModel(IQueryable<Produto> produtos, Pager Pager, eCategoria? Categoria)
         {
             this.Pager = Pager;

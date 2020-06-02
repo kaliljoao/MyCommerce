@@ -71,8 +71,6 @@
                         @Model.Produto.Descricao
                     </p>
                     <br />
-                    @if (DateTime.Now.Hour > 8 && DateTime.Now.Hour < 20)
-                    {
                         <div class="QuantidadeProduto">
                             Quantidade :
                             <select name="Quantidade" id="Quantidade">
@@ -83,14 +81,7 @@
                             </select>
                         </div>
                         <button data-id="@Model.Produto.Id" class="btn addCartBtn" type="button">Adicionar ao carrinho</button>
-                    }
-                    else
-                    {
-                        <p class="ClosedText">
-                            Estamos fechados por hoje!<br />
-                            Retorne amanhã entre 08:00 e 20:00!
-                        </p>
-                    }
+                    
                 </div>
             </div>
         </section>

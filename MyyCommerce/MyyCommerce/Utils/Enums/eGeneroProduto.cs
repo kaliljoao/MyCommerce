@@ -4,22 +4,20 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MyyCommerce.Utils.Enums
 {
-    public enum eCategoria
+    public enum eGeneroProduto
     {
         [DefaultValue(0)]
-        [Display(Name = "Camisa")]
-        Camisa,
+        [Display(Name = "Masculino")]
+        Masculino,
 
         [DefaultValue(1)]
-        [Display(Name = "Bermuda")]
-        Bermuda,
+        [Display(Name = "Feminino")]
+        Feminino,
 
         [DefaultValue(2)]
-        [Display(Name = "Acessório")]
-        Acessorio,
+        [Display(Name = "Unissex")]
+        Unissex,
 
-        [DefaultValue(3)]
-        [Display(Name = "Calçados")]
-        Calcado
+        
     }
 }

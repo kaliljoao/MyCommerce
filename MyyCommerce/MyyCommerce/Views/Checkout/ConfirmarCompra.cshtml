@@ -1,0 +1,83 @@
+﻿@model MyyCommerce.Domain.Pedido;
+
+@{
+    double ValorTotal = 0;
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <!-- page start-->
+        <section class="card">
+            <header class="card-header">
+                Compra Confirmada!
+            </header>
+            <div class="card-body">
+                <strong>Seus Produtos:</strong>
+                <table class="table table-hover p-table tablecenter">
+                    <thead>
+                        <tr>
+                            <th>Produto</th>
+                            <th>Quantidade</th>
+                            <th>Valor Unitário</th>
+                            <th>Valor Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var produto in Model.Produtos)
+                        {
+                            <tr>
+                                <td class="p-name">
+                                    @produto.Produto.Nome
+                                </td>
+                                <td class="p-team">
+                                    @produto.Quantidade
+                                </td>
+                                <td class="p-progress">
+                                    R$ @produto.Produto.Valor.ToString("n2")
+                                </td>
+                                <td>
+                                    R$ @((produto.Quantidade * produto.Produto.Valor).ToString("n2"))
+                                </td>
+                            </tr>
+                            ValorTotal += produto.Quantidade * produto.Produto.Valor;
+                        }
+                        <tr>
+                            <td class="bold">
+                                Total
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td class="bold">
+                                R$ @ValorTotal.ToString("n2")
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+                <strong>Informações de Entrega</strong>
+                <br />
+                <br />
+                @if (Model.TipoEntrega == MyyCommerce.Utils.Enums.eTipoEntrega.Retirada)
+                {
+                    <p>Retirar amanhã, @Model.DataEntrega.ToString("dd/MM/yyyy") na loja física.</p>
+                }
+                
+                else if (Model.TipoEntrega == MyyCommerce.Utils.Enums.eTipoEntrega.Delivery)
+                {
+                    <p>
+                        Endereço da Entrega:<br />
+                        Cep: @Model.Cep<br />
+                        Endereço: @Model.Endereco<br />
+                        Número: @Model.Numero<br />
+                        Complemento: @Model.Complemento<br />
+                    </p>
+                }
+               
+            </div>
+        </section>
+        <!-- page end-->
+    </div>
+</div>

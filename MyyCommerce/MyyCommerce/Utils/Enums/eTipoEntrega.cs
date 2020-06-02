@@ -11,7 +11,7 @@ namespace MyyCommerce.Utils.Enums
         Retirada,
 
         [DefaultValue(1)]
-        [Display(Name = "Receber em casa até 20h")]
+        [Display(Name = "Receber por Delivery")]
         Delivery
 
     }

@@ -502,9 +502,10 @@ input[type=number]::-webkit-outer-spin-button {
         }
 
     .vitrineimg {
-        height: 150px;
+        height: 120px;
     }
 
+  
     .container {
         padding-top: 80px;
     }
@@ -817,3 +818,22 @@ a {
     border-color: black;
     background-color: transparent;
 }
+
+
+.Novidades {
+    margin-bottom: 15px;
+}
+
+.dividerCategory {
+    text-align: center;
+    border-bottom: 1px solid !important;
+    margin-bottom: 25px;
+}
+
+    .dividerCategory h3 {
+        margin-bottom: 0px;
+        position: relative;
+        top: 13px;
+        display: inline;
+        background-color: white !important;
+    }

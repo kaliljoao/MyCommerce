@@ -34,10 +34,9 @@
 
     <link href="~/css/style.css" rel="stylesheet">
     <link href="~/css/style-responsive.css" rel="stylesheet" />
-    <link href="~/customStyle.css" rel="stylesheet" />
-
     <script src="~/js/jquery.js"></script>
     <script src="~/js/jquery.unobtrusive-ajax.js"></script>
+    <link href="~/customStyle.css" rel="stylesheet" />
 
 </head>
 
@@ -55,36 +54,153 @@
         <section id="main-content" class="ClientContent">
             <div class="container HomeContainer">
 
-                @if (Model.Produtos.Where(x => x.Categoria == MyyCommerce.Utils.Enums.eCategoria.Camisa).Count() > 0)
+                @if (Model.Produtos != null && Model.Categoria != null)
                 {
-                    <h4>Camisas</h4>
-                    <div class="row product-list">
-                        @foreach (MyyCommerce.Domain.Produto produto in Model.Produtos.Where(x => x.Categoria == MyyCommerce.Utils.Enums.eCategoria.Camisa @*&& x.Fotos.Count > 0*@))
-                        {
-                            <div class="col-md-4">
-                                <section class="card">
-                                    <div class="pro-img-box vitrineimg">
-                                        <div class="detalhesImgWrapper">
-                                            <a href="@Url.Action("Detalhar", "Produto", new { id = produto.Id })">
-                                                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="background-image:url(@produto.Fotos[0].Path)" />
+                    @if (Model.Categoria == MyyCommerce.Utils.Enums.eCategoria.Camisa)
+                    {
+                        <div style="text-align: center;">
+                            <h4>Camisas</h4>
+                        </div>
+                        <div class="row product-list">
+                            @foreach (MyyCommerce.Domain.Produto produto in Model.Produtos.Where(x => x.Categoria == MyyCommerce.Utils.Enums.eCategoria.Camisa && x.Fotos.Count > 0))
+                            {
+                                <div class="col-md-3">
+                                    <section class="card">
+                                        <div class="pro-img-box vitrineimg">
+                                            <div class="detalhesImgWrapper">
+                                                <a href="@Url.Action("Detalhar", "Produto", new { id = produto.Id })">
+                                                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="background-image:url(@produto.Fotos[0].Path)" />
+                                                </a>
+                                            </div>
+                                            <a href="@Url.Action("Detalhar", "Produto", new { id = produto.Id })" class="adtocart" style="left: 103px;">
+                                                <i class="fa fa-shopping-cart"></i>
                                             </a>
                                         </div>
-                                        <a href="@Url.Action("Detalhar", "Produto", new { id = produto.Id })" class="adtocart">
-                                            <i class="fa fa-shopping-cart"></i>
-                                        </a>
-                                    </div>
 
-                                    <div class="card-body text-center">
-                                        <h4>
-                                            <a href="@Url.Action("Detalhar", "Produto", new { id = produto.Id })" class="pro-title">
-                                                @produto.Nome
+                                        <div class="card-body text-center">
+                                            <h4>
+                                                <a href="@Url.Action("Detalhar", "Produto", new { id = produto.Id })" class="pro-title">
+                                                    @produto.Nome
+                                                </a>
+                                            </h4>
+                                            <p class="price">R$ @produto.Valor.ToString("n2")</p>
+                                        </div>
+                                    </section>
+                                </div>
+                            }
+                        </div>
+                    }
+
+                    else if (Model.Categoria == MyyCommerce.Utils.Enums.eCategoria.Bermuda)
+                    {
+                        <div style="text-align: center;">
+                            <h4>Bermudas</h4>
+                        </div>
+                        <div class="row product-list">
+                            @foreach (MyyCommerce.Domain.Produto produto in Model.Produtos.Where(x => x.Categoria == MyyCommerce.Utils.Enums.eCategoria.Bermuda && x.Fotos.Count > 0))
+                            {
+                                <div class="col-md-3">
+                                    <section class="card">
+                                        <div class="pro-img-box vitrineimg">
+                                            <div class="detalhesImgWrapper">
+                                                <a href="@Url.Action("Detalhar", "Produto", new { id = produto.Id })">
+                                                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="background-image:url(@produto.Fotos[0].Path)" />
+                                                </a>
+                                            </div>
+                                            <a href="@Url.Action("Detalhar", "Produto", new { id = produto.Id })" class="adtocart" style="left: 103px;">
+                                                <i class="fa fa-shopping-cart"></i>
                                             </a>
-                                        </h4>
-                                        <p class="price">R$ @produto.Valor.ToString("n2")</p>
-                                    </div>
-                                </section>
-                            </div>
-                        }
+                                        </div>
+
+                                        <div class="card-body text-center">
+                                            <h4>
+                                                <a href="@Url.Action("Detalhar", "Produto", new { id = produto.Id })" class="pro-title">
+                                                    @produto.Nome
+                                                </a>
+                                            </h4>
+                                            <p class="price">R$ @produto.Valor.ToString("n2")</p>
+                                        </div>
+                                    </section>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else if (Model.Categoria == MyyCommerce.Utils.Enums.eCategoria.Calcado)
+                    {
+                        <div style="text-align: center;">
+                            <h4>Calçados</h4>
+                        </div>
+                        <div class="row product-list">
+                            @foreach (MyyCommerce.Domain.Produto produto in Model.Produtos.Where(x => x.Categoria == MyyCommerce.Utils.Enums.eCategoria.Calcado && x.Fotos.Count > 0))
+                            {
+                                <div class="col-md-3">
+                                    <section class="card">
+                                        <div class="pro-img-box vitrineimg">
+                                            <div class="detalhesImgWrapper">
+                                                <a href="@Url.Action("Detalhar", "Produto", new { id = produto.Id })">
+                                                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="background-image:url(@produto.Fotos[0].Path)" />
+                                                </a>
+                                            </div>
+                                            <a href="@Url.Action("Detalhar", "Produto", new { id = produto.Id })" class="adtocart" style="left: 103px;">
+                                                <i class="fa fa-shopping-cart"></i>
+                                            </a>
+                                        </div>
+
+                                        <div class="card-body text-center">
+                                            <h4>
+                                                <a href="@Url.Action("Detalhar", "Produto", new { id = produto.Id })" class="pro-title">
+                                                    @produto.Nome
+                                                </a>
+                                            </h4>
+                                            <p class="price">R$ @produto.Valor.ToString("n2")</p>
+                                        </div>
+                                    </section>
+                                </div>
+                            }
+                        </div>
+                    }
+                    else if (Model.Categoria == MyyCommerce.Utils.Enums.eCategoria.Acessorio)
+                    {
+                        <div style="text-align: center;">
+                            <h4>Acessórios</h4>
+                        </div>
+                        <div class="row product-list">
+                            @foreach (MyyCommerce.Domain.Produto produto in Model.Produtos.Where(x => x.Categoria == MyyCommerce.Utils.Enums.eCategoria.Acessorio && x.Fotos.Count > 0))
+                            {
+                                <div class="col-md-3">
+                                    <section class="card">
+                                        <div class="pro-img-box vitrineimg">
+                                            <div class="detalhesImgWrapper">
+                                                <a href="@Url.Action("Detalhar", "Produto", new { id = produto.Id })">
+                                                    <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="background-image:url(@produto.Fotos[0].Path)" />
+                                                </a>
+                                            </div>
+                                            <a href="@Url.Action("Detalhar", "Produto", new { id = produto.Id })" class="adtocart" style="left: 103px;">
+                                                <i class="fa fa-shopping-cart"></i>
+                                            </a>
+                                        </div>
+
+                                        <div class="card-body text-center">
+                                            <h4>
+                                                <a href="@Url.Action("Detalhar", "Produto", new { id = produto.Id })" class="pro-title">
+                                                    @produto.Nome
+                                                </a>
+                                            </h4>
+                                            <p class="price">R$ @produto.Valor.ToString("n2")</p>
+                                        </div>
+                                    </section>
+                                </div>
+                            }
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="Novidades">
+                        <div class="dividerCategory">
+                            <h3>Novidades</h3>
+                        </div>
+
                     </div>
                 }
 

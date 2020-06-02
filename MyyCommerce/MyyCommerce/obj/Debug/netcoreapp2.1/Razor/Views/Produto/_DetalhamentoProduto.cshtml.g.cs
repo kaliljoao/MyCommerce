@@ -54,7 +54,7 @@ using MyyCommerce.Models;
             WriteLiteral("\r\n<div id=\"form-div\">\r\n    ");
             EndContext();
             BeginContext(75, 61, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "b7d6710bbb7845cebfdf5870ebe43ece", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "cf970fdb10f04d309b2a963520b1e8b6", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_PartialTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.PartialTagHelper>();

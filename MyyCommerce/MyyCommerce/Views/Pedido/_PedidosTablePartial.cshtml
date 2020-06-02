@@ -9,7 +9,10 @@
         <thead>
             <tr>
                 <th>Número</th>
-                <th>Cliente</th>
+                @if(User.IsInRole("Admin"))
+                { 
+                    <th>Cliente</th>
+                }
                 <th>Data Pedido</th>
                 <th>Data Entrega</th>
                 <th>Pagamento</th>
@@ -20,19 +23,22 @@
         <tbody>
             @foreach (var pedido in Model.Pedidos)
             {
-                <tr>
-                    <td>@pedido.Id</td>
+            <tr>
+                <td>@pedido.Id</td>
+                @if (User.IsInRole("Admin"))
+                {
                     <td>@(pedido.ApplicationUser.Nome + pedido.ApplicationUser.Sobrenome)</td>
-                    <td>@pedido.DataPedido.ToString("dd/MM/yyyy")</td>
-                    <td>@pedido.DataEntrega.ToString("dd/MM/yyyy")</td>
-                    <td>@pedido.StatusPagamento</td>
-                    <td>@pedido.StatusPedido</td>
+                }
+                <td>@pedido.DataPedido.ToString("dd/MM/yyyy")</td>
+                <td>@pedido.DataEntrega.ToString("dd/MM/yyyy")</td>
+                <td>@pedido.StatusPagamento</td>
+                <td>@pedido.StatusPedido</td>
 
-                    <td class="columnActionBtn">
-                        <label class="btn btn-primary btn-xs SlowEditBtn SlowDetalharBtn" data-id="@pedido.Id" data-toggle="modal" data-target="#modaldetalharpedido"><span>Detalhar </span></label>
-                        <label data-id="@pedido.Id" class="btn btn-primary btn-xs SlowDeleteBtn"><span><i class="fa fa-trash-o"></i> </span></label>
-                    </td>
-                </tr>
+                <td class="columnActionBtn">
+                    <label class="btn btn-primary btn-xs SlowEditBtn SlowDetalharBtn" data-id="@pedido.Id" data-toggle="modal" data-target="#modaldetalharpedido"><span>Detalhar </span></label>
+                    <label data-id="@pedido.Id" class="btn btn-primary btn-xs SlowDeleteBtn"><span><i class="fa fa-trash-o"></i> </span></label>
+                </td>
+            </tr>
             }
         </tbody>
     </table>

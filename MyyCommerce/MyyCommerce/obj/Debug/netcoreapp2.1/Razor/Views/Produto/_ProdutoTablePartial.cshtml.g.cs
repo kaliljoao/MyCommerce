@@ -226,7 +226,7 @@ using MyyCommerce.Models;
             WriteLiteral("                        <li>\r\n                            ");
             EndContext();
             BeginContext(2294, 97, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "373208ca28a641db8ac87e7a832a2f0d", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "056e539fa98d4c938d7b9d6e71337b3e", async() => {
                 BeginContext(2386, 1, true);
                 WriteLiteral("←");
                 EndContext();
@@ -260,7 +260,7 @@ AddHtmlAttributeValue("", 2354, Model.Pager.CurrentPage - 1, 2354, 30, false);
             WriteLiteral("\r\n                        </li>\r\n                        <li>\r\n                            ");
             EndContext();
             BeginContext(2482, 61, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f9cfc340fcd642298e1002ff7cb4960a", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4b2ec767e7d648f5a6a9876976bdb5f7", async() => {
                 BeginContext(2538, 1, true);
                 WriteLiteral("1");
                 EndContext();
@@ -298,7 +298,7 @@ AddHtmlAttributeValue("", 2493, ViewContext.RouteData.Values["Controller"], 2493
             WriteLiteral("                        <li class=\"active\">\r\n                            ");
             EndContext();
             BeginContext(2721, 61, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "857793c0dc6942fe9ecd85f645d330ce", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f23626bef58a4f84b28ac3ea57e9948a", async() => {
                 BeginContext(2777, 1, true);
                 WriteLiteral("1");
                 EndContext();
@@ -355,7 +355,7 @@ WriteAttributeValue("", 3139, pagerPage == Model.Pager.CurrentPage ? "active" : 
             WriteLiteral(">\r\n                                ");
             EndContext();
             BeginContext(3230, 86, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "98dc2671d17f479cbd5e453d6d8bf75c", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "406d77be4c0445178735b812703d888c", async() => {
                 BeginContext(3303, 9, false);
 #line 72 "/Users/kaliljoao/Projects/MyCommerce/MyyCommerce/MyyCommerce/Views/Produto/_ProdutoTablePartial.cshtml"
                                                                                                    Write(pagerPage);
@@ -411,7 +411,7 @@ AddHtmlAttributeValue("", 3290, pagerPage, 3290, 10, false);
             WriteLiteral("                        <li class=\"next\">\r\n                            ");
             EndContext();
             BeginContext(3575, 99, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c3079ce08d25495fafd2397913a4bdf5", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b196046e6c12461c9a78caf2cfe174f5", async() => {
                 BeginContext(3667, 3, true);
                 WriteLiteral(" → ");
                 EndContext();
@@ -445,7 +445,7 @@ AddHtmlAttributeValue("", 3635, Model.Pager.CurrentPage + 1, 3635, 30, false);
             WriteLiteral("\r\n                        </li>\r\n                        <li>\r\n                            ");
             EndContext();
             BeginContext(3765, 97, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "98e77232b65440f395eaa3e2ca7f5ce9", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f4161232136c433ebe585256b0a95fc4", async() => {
                 BeginContext(3852, 6, true);
                 WriteLiteral("Última");
                 EndContext();
@@ -487,7 +487,7 @@ AddHtmlAttributeValue("", 3825, Model.Pager.TotalPages, 3825, 25, false);
             WriteLiteral("\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n\r\n    ");
             EndContext();
             BeginContext(3999, 633, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b58074e859d84da6ac48c090a439c281", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "eab1cae7a8704439a2f7026e0cf56998", async() => {
                 BeginContext(4110, 285, true);
                 WriteLiteral(@"
         <div class=""modal inmodal"" id=""modalProduto-add"" tabindex=""-1"" role=""dialog"" aria-hidden=""true"">
@@ -497,7 +497,7 @@ AddHtmlAttributeValue("", 3825, Model.Pager.TotalPages, 3825, 25, false);
                         ");
                 EndContext();
                 BeginContext(4395, 136, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "103e102622d64c5b85358fe1db845c0d", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "16c07b3cad9a4a77bb1b5d70aa5a58f6", async() => {
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_TagHelpers_PartialTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.PartialTagHelper>();
