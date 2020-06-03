@@ -19,7 +19,7 @@
 <link href="~/assets/toastr-master/toastr.css" rel="stylesheet" type="text/css" />
 <script src="~/assets/toastr-master/toastr.js"></script>
 
-<form action="/Checkout/FazerCheckout" method="post" id="formCheckout">
+<form method="post" id="formCheckout">
     <div class="row">
         <div class="col-md-12">
             <!-- page start-->
@@ -87,14 +87,6 @@
                     <div class="form-group">
                         <label for="exampleInputEmail1">Cpf Portador</label>
                         <input class="form-control" asp-for="CpfCartao" required="required">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Dt. Nascimento Portador</label>
-                        <input class="form-control date-picker" asp-for="DataNascimentoCartao" required="required">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Telefone Portador</label>
-                        <input class="form-control" asp-for="TelefoneCartao" required="required">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">Cep</label>
@@ -254,24 +246,20 @@
         "hideMethod": "fadeOut"
     };
 
-    $('.date-picker').datepicker({
-        autoclose: true,
-        format: 'dd/mm/yyyy',
-        dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S']
-    });
+
 
     $('.removerProdutoBtn').click(function () {
         var $buttonClicked = $(this);
         var id = $buttonClicked.attr('data-id');
 
-        let foo = prompt('Quantos você deseja remover?');
-            $.ajax({
-        url: '@Url.Action("RemoverProduto", "Checkout")',
+        var foo = prompt('Quantos você deseja remover?');
+        $.ajax({
+            url: '@Url.Action("RemoverProduto", "Checkout")',
                 type: 'GET',
                 data: { id: id, Quantidade: foo },
                 success: function (partialView) {
                     $('#CheckoutProdutosDiv').html(partialView);
-            }
+                }
         });
 
     });
@@ -296,23 +284,9 @@
     }
 
     $("#buscaCepBtn").click(function () {
-        //Início do Comando AJAX
         $.ajax({
-        //O campo URL diz o caminho de onde virá os dados
-        //É importante concatenar o valor digitado no CEP
         url: 'https://viacep.com.br/ws/' + $('#CepEntrega').val() + '/json/unicode/',
-            //Aqui você deve preencher o tipo de dados que será lido,
-            //no caso, estamos lendo JSON.
-            dataType: 'json',
-            //SUCESS é referente a função que será executada caso
-            //ele consiga ler a fonte de dados com sucesso.
-            //O parâmetro dentro da função se refere ao nome da variável
-            //que você vai dar para ler esse objeto.
             success: function (resposta) {
-                if(resposta.bairro != "Glória" && resposta.bairro != "Catete" && resposta.bairro != "Flamengo" && resposta.bairro != "Laranjeiras" && resposta.bairro != "Humaitá" && resposta.bairro != "Botafogo" && resposta.bairro != "Urca" && resposta.bairro !=  "Copacabana" && resposta.bairro != "Leme" && resposta.bairro != "Ipanema" && resposta.bairro != "Leblon" && resposta.bairro != "Gávea" && resposta.bairro != "Jardim Botânico" && resposta.bairro != "Lagoa")
-                {
-                     $(".lblBairroInvalido").show();
-                }
                 $("#EstadoPagamento").val(resposta.uf);
                 $("#CidadePagamento").val(resposta.localidade);
                 $("#BairroPagamento").val(resposta.bairro);
@@ -330,11 +304,6 @@
     });
 
     $("#BairroPagamento").change(function () {
-        if ($('#BairroPagamento').val() != 'Glória' && $('#BairroPagamento').val() != 'Catete' && $('#BairroPagamento').val() != 'Flamengo' && $('#BairroPagamento').val() != 'Laranjeiras' && $('#BairroPagamento').val() != 'Humaitá' && $('#BairroPagamento').val() != 'Botafogo' && $('#BairroPagamento').val() != 'Urca' && $('#BairroPagamento').val() != 'Copacabana' && $('#BairroPagamento').val() != 'Leme' && $('#BairroPagamento').val() != 'Ipanema' && $('#BairroPagamento').val() != 'Leblon' && $('#BairroPagamento').val() != 'Gávea' && $('#BairroPagamento').val() != 'Jardim Botânico' && $('#BairroPagamento').val() != 'Lagoa')
-        {
-           $(".lblBairroInvalido").show();
-        }
-
         $("#BairroEntrega").val($('#BairroPagamento').val());
     });
 
@@ -351,18 +320,9 @@
     });
 
     $("#buscaCepPagamentoBtn").click(function () {
-        //Início do Comando AJAX
         $.ajax({
-        //O campo URL diz o caminho de onde virá os dados
-        //É importante concatenar o valor digitado no CEP
         url: 'https://viacep.com.br/ws/' + $('#CepPagamento').val() + '/json/unicode/',
-            //Aqui você deve preencher o tipo de dados que será lido,
-            //no caso, estamos lendo JSON.
             dataType: 'json',
-            //SUCESS é referente a função que será executada caso
-            //ele consiga ler a fonte de dados com sucesso.
-            //O parâmetro dentro da função se refere ao nome da variável
-            //que você vai dar para ler esse objeto.
             success: function (resposta) {
                 console.log(resposta);
                 $("#EstadoPagamento").val(resposta.uf);
@@ -379,106 +339,22 @@
         });
     });
 
-    @*var PagseguroSession = '@Model.PagseguroSession';
-    var formsubmitted = false;
-    console.log(PagseguroSession);
-    PagSeguroDirectPayment.setSessionId(PagseguroSession);
-
-    var produtoList = '@Html.Raw(Model.ProdutoString)';
-    console.log(produtoList);
-
-    var senderName = '@Html.Raw(cliente.Nome != null ? cliente.Nome + " " + cliente.Sobrenome : "")';
-    var senderTelefone = '@Html.Raw(cliente.Telefone)';
-    var senderEmail = '@Html.Raw(cliente.Email)';*@
 
     $("#formCheckout").on("submit", function (e) {
-        e.preventDefault();
 
-        var cardBrand = '';
-        PagSeguroDirectPayment.getBrand({
-        cardBin: $('#NumeroCartao').val().substring(0, 6),
-                success: function(response) {
-                //bandeira encontrada
-                cardBrand = response.brand.name;
-                console.log(response.brand.name)
-
-
-
-
-        var creditCardHash = '';
-        PagSeguroDirectPayment.createCardToken({
-            cardNumber: $('#NumeroCartao').val(), // Número do cartão de crédito
-            brand: cardBrand, // Bandeira do cartão
-            cvv: $('#CvvCartao').val(), // CVV do cartão
-            expirationMonth: $('#ValidadeCartaoMes').val(), // Mês da expiração do cartão
-            expirationYear: $('#ValidadeCartaoAno').val(), // Ano da expiração do cartão, é necessário os 4 dígitos.
-               success: function(response) {
-                // Retorna o cartão tokenizado.
-                creditCardHash = response.card.token;
-                console.log('cardHash = ' + creditCardHash);
-
-                var senderHash = '';
-                PagSeguroDirectPayment.onSenderHashReady(function(response){
-                    if(response.status == 'error') {
-                        console.log(response.message);
-                        return false;
-                    }
-                    senderHash = response.senderHash; //Hash estará disponível nesta variável.
-                    console.log('senderHash = ' + senderHash);
-                    console.log($('#PrecoFinal').val());
-                    PagSeguroDirectPayment.getInstallments({
-                            amount: $('#PrecoFinal').val(),
-                            maxInstallmentNoInterest: 2,
-                            brand: cardBrand,
-                            success: function(response){
-       	                        // Retorna as opções de parcelamento disponíveis
-
-                                 console.log(response);
-                                    if(formsubmitted !== true)
-                                    {
-                                        formsubmitted = true;
-                                        $.ajax({
-                                        type: "POST",
-                                        url: '@Url.Action("FazerCheckout", "Checkout")',
-                                        data: $('#formCheckout').serialize() + '&senderHash=' + senderHash + '&creditCardToken=' + creditCardHash,
-                                            success: function (resposta) {
-                                                console.log(resposta);
-                                                window.location.replace("/Checkout/ConfirmarCompra/" + resposta);
-                                            },
-                                            error: function(erro) {
-                                                console.log(erro)
-                                                formsubmitted = false;
-                                            }
-                                        });
-                                   }
-                           },
-                            error: function(response) {
-       	                        console.log(response);
-                           },
-                            complete: function(response){
-                                // Callback para todas chamadas.
-                           }
-                    });
-
-
-                });
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("FazerCheckout", "Checkout")',
+            data: $('#formCheckout').serialize(),
+            success: function (resposta) {
+                console.log(resposta);
+                window.location.replace("/Checkout/ConfirmarCompra/" + resposta);
             },
-               error: function(response) {
-                // Callback para chamadas que falharam.
-            },
-               complete: function(response) {
-                // Callback para todas chamadas.
+            error: function(erro) {
+                console.log(erro)
+                formsubmitted = false;
             }
         });
-
-     },
-                error: function(response) {
-                //tratamento do erro
-            },
-                        complete: function(response) {
-                        //tratamento comum para todas chamadas
-                    }
-                });
 
     });
 </script>

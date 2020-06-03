@@ -12,10 +12,13 @@
         <label for="exampleInputEmail1">Número</label>
         <input class="form-control" readonly="readonly" value="@Model.Id">
     </div>
-    <div class="form-group enderecoGroup">
-        <label for="exampleInputEmail1">Cliente</label>
-        <input class="form-control" readonly="readonly" value="@(Model.ApplicationUser.Nome != null ? Model.ApplicationUser.Nome + " " + Model.ApplicationUser.Sobrenome : "")">
-    </div>
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="form-group enderecoGroup">
+            <label for="exampleInputEmail1">Cliente</label>
+            <input class="form-control" readonly="readonly" value="@(Model.ApplicationUser.Nome != null ? Model.ApplicationUser.Nome + " " + Model.ApplicationUser.Sobrenome : Model.ApplicationUser.Email)">
+        </div>
+    }
     <div class="form-group enderecoGroup">
         <label for="exampleInputEmail1">Data Pedido</label>
         <input class="form-control" readonly="readonly" value="@Model.DataPedido.ToString("dd/MM/yyyy")">
@@ -32,28 +35,28 @@
         <label for="exampleInputEmail1">Entrega</label>
         <input class="form-control" readonly="readonly" value="@Model.TipoEntrega.ToString()">
     </div>
-    @*@if (Model.TipoEntrega == MyyCommerce.Utils.Enums.eTipoEntrega.Delivery)
+    @if (Model.TipoEntrega == MyyCommerce.Utils.Enums.eTipoEntrega.Delivery)
     {
         <div class="form-group enderecoGroup">
             <label for="exampleInputEmail1">Cep</label>
-            <input class="form-control" value="@Model.CepEntrega" readonly="readonly">
+            <input class="form-control" value="@Model.Cep" readonly="readonly">
         </div>
         <div class="form-group enderecoGroup">
             <label for="exampleInputEmail1">Endereço</label>
-            <input class="form-control" value="@Model.EnderecoEntrega" readonly="readonly">
+            <input class="form-control" value="@Model.Endereco" readonly="readonly">
         </div>
         <div class="form-group enderecoGroup">
             <label for="exampleInputEmail1">Número</label>
-            <input class="form-control" value="@Model.NumEntrega" readonly="readonly">
+            <input class="form-control" value="@Model.Numero" readonly="readonly">
         </div>
         <div class="form-group enderecoGroup">
             <label for="exampleInputEmail1">Complemento</label>
-            <input class="form-control" value="@Model.ComplementoEntrega" readonly="readonly">
+            <input class="form-control" value="@Model.Complemento" readonly="readonly">
         </div>
-    }*@
+    }
     <div class="form-group enderecoGroup">
         <label for="exampleInputEmail1" class="bold">Produtos</label>
-        <table class="table tablecenter">
+        <table class="table tablecenter" style="min-width: unset;">
             <tr>
                 <th>Produto</th>
                 <th>Quantidade</th>

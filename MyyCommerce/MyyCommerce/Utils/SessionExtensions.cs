@@ -14,8 +14,10 @@ namespace MyyCommerce.Utils
         public static T GetObjectFromJson<T>(this ISession session, string key)
         {
             var value = session.GetString(key);
-            if(value.StartsWith('['))
+
+            if(value != null && value.StartsWith('['))
                 value = value.Substring(1, value.Length - 2);
+
             return (value == null || value == "{}")? default(T) : JsonConvert.DeserializeObject<T>(value);
         }
 

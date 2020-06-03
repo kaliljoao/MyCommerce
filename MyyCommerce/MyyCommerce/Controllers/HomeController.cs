@@ -30,10 +30,16 @@ namespace MyyCommerce.Controllers
 
         public async Task<IActionResult> Index(eCategoria? Categoria, int? page)
         {
-            
-            HttpContext.Session.SetComplexData("CarrinhoDb", db.PedidosCarrinho.Where(x => x.UserId == _userManager.GetUserAsync(HttpContext.User).Result.Id)
-                .Include(x => x.Produtos)
-            );
+
+            if(HttpContext.Session.GetObjectFromJson<PedidoCarrinho>("CarrinhoDb") == null)
+                HttpContext.Session.SetComplexData("CarrinhoDb", db.PedidosCarrinho.Where(x => x.UserId == _userManager.GetUserAsync(HttpContext.User).Result.Id)
+                    .Include(x => x.Produtos)
+                );
+
+            if (User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Pedido");
+            }
 
             if (Categoria != null)
             {

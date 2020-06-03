@@ -74,9 +74,12 @@ else {
 
             @if (SignInManager.IsSignedIn(User))
             {
-                <li class="DesktopMenu">
-                    <a class="dropdown-item" href="@Url.Action("Index", "Pedido")"> Meus Pedidos </a>
-                </li>
+                @if (!User.IsInRole("Admin"))
+                { 
+                    <li class="DesktopMenu">
+                        <a class="dropdown-item" href="@Url.Action("Index", "Pedido")"> Meus Pedidos </a>
+                    </li>
+                }   
                 <li class="DesktopMenu" style="padding-top: 18px;">
                     <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" id="logoutForm" method="post" class="navbar-right">
                         <div class="navbar-right">

@@ -18,11 +18,6 @@ namespace MyyCommerce.Domain
         [DisplayFormat(ConvertEmptyStringToNull = false)]
         public string Descricao { get; set; }
 
-
-
-        [DisplayFormat(ConvertEmptyStringToNull = false)]
-        public string Ingredientes { get; set; }
-
         
         public double Valor { get; set; }
         public int QtdEstoque { get; set; }

@@ -187,10 +187,6 @@ namespace MyyCommerce.Controllers
                 carrinho.Produtos.Add(produtoCarrinho);
             }
 
-            //var produto = db.Produtos.Where(x => x.Id == ProdutoId).FirstOrDefault();
-            //produto.QtdEstoque -= Quantidade;
-            //db.Update(produto);
-            //db.SaveChanges();
 
             PedidoCarrinho pedidoCarrinho = db.PedidosCarrinho.Where(x => x.UserId == _userManager.GetUserAsync(HttpContext.User).Result.Id)
                 .Include(x => x.Produtos)
@@ -203,15 +199,22 @@ namespace MyyCommerce.Controllers
             }
             else
             {
+                List<ProdutoCarrinho> produtosNaoCadastrados = new List<ProdutoCarrinho>();
+
+                
                 carrinho.Produtos.ForEach(prod => {
-                    pedidoCarrinho.Produtos.ForEach(p => {
-                        if(prod.ProdutoId == p.ProdutoId)
-                        {
-                            p.Quantidade = prod.Quantidade;
-                        }
-                    });
+                    var findProd = pedidoCarrinho.Produtos.Find(x => x.ProdutoId == prod.ProdutoId);
+                    if(findProd == null)
+                    {
+                        pedidoCarrinho.Produtos.Add(prod);
+                    }
+                    else
+                    {
+                        findProd.Quantidade = prod.Quantidade;
+                    }
+                    db.Update(pedidoCarrinho);
                 });
-                db.Update(pedidoCarrinho);
+
             }
             db.SaveChanges();
 

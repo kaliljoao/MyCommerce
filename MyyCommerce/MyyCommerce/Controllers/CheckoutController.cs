@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -21,14 +23,16 @@ namespace MyyCommerce.Controllers
     public class CheckoutController : Controller
     {
         private readonly ApplicationDbContext db;
+        private readonly UserManager<ApplicationUser> _userManager;
         private readonly IHttpClientFactory _clientFactory;
         IConfiguration _configuration;
 
-        public CheckoutController(ApplicationDbContext context, IHttpClientFactory clientFactory, IConfiguration configuration)
+        public CheckoutController(ApplicationDbContext context, IHttpClientFactory clientFactory, IConfiguration configuration, UserManager<ApplicationUser> userManager)
         {
             db = context;
             _clientFactory = clientFactory;
             _configuration = configuration;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Index()
@@ -36,16 +40,16 @@ namespace MyyCommerce.Controllers
             return View(await GetChekoutModel());
         }
 
-        [HttpPost]
+
         public async Task<IActionResult> FazerCheckout(CheckoutViewModel model)
         {
-            ApplicationUser user = db.Users.Where(x => x.TipoUser == eTipoUser.Cliente && x.Id == this.User.FindFirstValue(ClaimTypes.NameIdentifier)).FirstOrDefault();
+            ApplicationUser user = await _userManager.GetUserAsync(HttpContext.User);
             var pedido = new Pedido()
             {
                 ApplicationUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier),
                 Cep = model.CepEntrega,
                 Complemento = model.ComplementoEntrega,
-                DataEntrega = Convert.ToDateTime(model.DataEntrega),
+                DataEntrega = DateTime.ParseExact(model.DataEntrega,"dd/MM/yyyy", CultureInfo.CurrentCulture),
                 Endereco = model.EnderecoEntrega,
                 DataPedido = DateTime.Now,
                 Numero = model.NumEntrega,
@@ -53,20 +57,25 @@ namespace MyyCommerce.Controllers
 
             };
 
-            var carrinho = HttpContext.Session.GetObjectFromJson<List<ProdutoPedido>>("Carrinho");
+            var carrinho = HttpContext.Session.GetObjectFromJson<PedidoCarrinho>("CarrinhoDb");
             
-            db.Attach(pedido);
-            foreach (var item in carrinho)
+            pedido.Produtos = new List<ProdutoPedido>();
+            foreach (var item in carrinho.Produtos)
             {
-                item.PedidoId = pedido.Id;
-                db.Attach(item);
+                ProdutoPedido produtoPedido = new ProdutoPedido() { 
+                    ProdutoId = item.ProdutoId,
+                    Quantidade = item.Quantidade,
+                };
+
+                pedido.Produtos.Add(produtoPedido);
             }
+            db.Add(pedido);
             db.SaveChanges();
 
             var client = _clientFactory.CreateClient();
 
            
-            foreach (var produto in carrinho)
+            foreach (var produto in carrinho.Produtos)
             {
                 var produtoEstoque = db.Produtos.Where(x => x.Id == produto.ProdutoId).FirstOrDefault();
                 if (produtoEstoque != null)
@@ -77,24 +86,41 @@ namespace MyyCommerce.Controllers
             }
             db.SaveChanges();
 
+            db.PedidosCarrinho.Remove(db.PedidosCarrinho.Where(x => x.UserId == user.Id).FirstOrDefault());
+            db.SaveChanges();
 
             return Ok(pedido.Id);
         }
 
-        public IActionResult RemoverProduto(int id, int Quantidade)
+        public async Task<IActionResult> RemoverProduto(int id, int Quantidade)
         {
-            List<ProdutoPedido> carrinho = HttpContext.Session.GetObjectFromJson<List<ProdutoPedido>>("Carrinho");
+            PedidoCarrinho carrinho = HttpContext.Session.GetObjectFromJson<PedidoCarrinho>("CarrinhoDb");
             if (carrinho == null)
-                carrinho = new List<ProdutoPedido>();
+                carrinho = new PedidoCarrinho();
 
-            var produtoEmCarrinho = carrinho.Where(x => x.ProdutoId == id).FirstOrDefault();
-            if (produtoEmCarrinho != null)
+            PedidoCarrinho carrinhoDb = db.PedidosCarrinho.Where(x => x.UserId == carrinho.UserId).Include(x => x.Produtos).FirstOrDefault();
+            if (carrinho.Produtos != null)
             {
-                produtoEmCarrinho.Quantidade -= Quantidade;
+                if (carrinho.Produtos.Where(x => x.ProdutoId == id).FirstOrDefault().Quantidade - Quantidade > 0)
+                {
+                    carrinho.Produtos.Where(x => x.ProdutoId == id).FirstOrDefault().Quantidade -= Quantidade;
+                    carrinhoDb.Produtos.Where(x => x.ProdutoId == id).FirstOrDefault().Quantidade -= Quantidade;
+                }
+                else
+                {
+                    carrinho.Produtos.Remove(carrinho.Produtos.Where(x => x.ProdutoId == id).FirstOrDefault());
+                    db.ProdutosCarrinho.Remove(carrinhoDb.Produtos.Where(x => x.ProdutoId == id).FirstOrDefault());
+                    carrinhoDb.Produtos.Remove(carrinhoDb.Produtos.Where(x => x.ProdutoId == id).FirstOrDefault());
+                }
             }
-            HttpContext.Session.SetObjectAsJson("Carrinho", carrinho);
+            HttpContext.Session.SetObjectAsJson("CarrinhoDb", carrinho);
 
-            return PartialView("_CheckoutProdutosPartial", GetChekoutModel());
+           
+            db.Update(carrinhoDb);
+            db.SaveChanges();
+
+
+            return PartialView("_CheckoutProdutosPartial", await GetChekoutModel());
         }
 
         public async Task<CheckoutViewModel> GetChekoutModel()
@@ -113,7 +139,7 @@ namespace MyyCommerce.Controllers
             }
             else
             {
-                model.Carrinho = new PedidoCarrinho();
+                model.Carrinho = new PedidoCarrinho() { Produtos = new List<ProdutoCarrinho>()  };
             }
 
             int i = 1;

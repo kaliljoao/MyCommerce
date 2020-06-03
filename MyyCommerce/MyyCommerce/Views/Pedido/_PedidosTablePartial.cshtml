@@ -27,7 +27,7 @@
                 <td>@pedido.Id</td>
                 @if (User.IsInRole("Admin"))
                 {
-                    <td>@(pedido.ApplicationUser.Nome + pedido.ApplicationUser.Sobrenome)</td>
+                    <td>@(pedido.ApplicationUser.Nome != null ? pedido.ApplicationUser.Nome + " " + pedido.ApplicationUser.Sobrenome : pedido.ApplicationUser.Email)</td>
                 }
                 <td>@pedido.DataPedido.ToString("dd/MM/yyyy")</td>
                 <td>@pedido.DataEntrega.ToString("dd/MM/yyyy")</td>
@@ -103,7 +103,7 @@
 
 <script>
      function getConfirmation() {
-        var retVal = confirm("Tem certeza que deseja remover esse Produto?");
+        var retVal = confirm("Tem certeza que deseja remover esse Pedido?");
         if (retVal == true) {
             return true;
         }
@@ -118,7 +118,7 @@
 
         if (getConfirmation()) {
             $.ajax({
-                url: '@Url.Action("Deletar", "Produto")',
+                url: '@Url.Action("Deletar", "Pedido")',
                 type: 'GET',
                 data: { id: id },
                 success: function (partialView) {

@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -20,10 +22,13 @@ namespace MyyCommerce.Controllers
     public class PedidoController : Controller
     {
         private readonly ApplicationDbContext db;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public PedidoController (ApplicationDbContext context)
+
+        public PedidoController (ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             db = context;
+            _userManager = userManager;
         }
 
         public IActionResult Index(int? page)
@@ -66,11 +71,26 @@ namespace MyyCommerce.Controllers
 
             if (User.IsInRole("Cliente"))
             {
-                pedidos = pedidos.Where(x => x.ApplicationUserId == this.User.FindFirstValue(ClaimTypes.NameIdentifier));
+                pedidos = pedidos.Where(x => x.ApplicationUserId == _userManager.GetUserAsync(HttpContext.User).Result.Id);
             }
             else
             {
                 ViewBag.ApplicationUserId = new SelectList(db.Users.OrderBy(x => x.Nome).ToList(), "Id", "Nome");
+            }
+
+            PedidosFilterModel filterModel = HttpContext.Session.GetComplexData<PedidosFilterModel>("FilterModelPedido");
+            if (filterModel != null)
+            {
+                if (filterModel.DataPedidoFilter != null)
+                {
+                    pedidos = pedidos.Where(x => x.DataPedido.Date == DateTime.ParseExact(filterModel.DataPedidoFilter, "dd/MM/yyyy", CultureInfo.CurrentCulture));
+                }
+                
+
+                if (filterModel.ClienteIdFilter != null)
+                {
+                    pedidos = pedidos.Where(x => x.ApplicationUserId == filterModel.ClienteIdFilter);
+                }
             }
 
             PedidosViewModel model = new PedidosViewModel(pedidos, new Pager(pedidos.Count(), page));
