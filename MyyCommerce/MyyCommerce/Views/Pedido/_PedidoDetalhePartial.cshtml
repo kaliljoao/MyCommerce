@@ -32,6 +32,10 @@
         <input class="form-control" value="@Model.StatusPedido.ToString()" readonly="readonly">
     </div>
     <div class="form-group enderecoGroup">
+        <label for="exampleInputEmail1">Status Pagamento</label>
+        <input class="form-control" value="@Model.StatusPagamento.ToString()" readonly="readonly">
+    </div>
+    <div class="form-group enderecoGroup">
         <label for="exampleInputEmail1">Entrega</label>
         <input class="form-control" readonly="readonly" value="@Model.TipoEntrega.ToString()">
     </div>
@@ -76,6 +80,6 @@
 
 <div class="modal-footer">
     <button type="button" class="btn btn-white btnCloseSlow" data-dismiss="modal">Fechar</button>
-    <button type="submit" class="btn btn-primary btnSaveSlow">Salvar</button>
+    @*<button type="submit" class="btn btn-primary btnSaveSlow">Salvar</button>*@
 </div>
 

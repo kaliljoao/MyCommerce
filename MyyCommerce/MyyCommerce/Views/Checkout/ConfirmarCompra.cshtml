@@ -41,18 +41,30 @@
                             </tr>
                             ValorTotal += produto.Quantidade * produto.Produto.Valor;
                         }
-                        <tr>
-                            <td class="bold">
-                                Total
-                            </td>
-                            <td>
-                            </td>
-                            <td>
-                            </td>
+                    <tr>
+                        <td class="bold">
+                            Total
+                        </td>
+                        <td>
+                        </td>
+                        <td>
+                        </td>
+
+                        @if (Model.TipoEntrega == MyyCommerce.Utils.Enums.eTipoEntrega.Delivery)
+                        {
+                            ValorTotal = ValorTotal + 10;
+
                             <td class="bold">
                                 R$ @ValorTotal.ToString("n2")
                             </td>
-                        </tr>
+                        }
+                        else
+                        {
+                            <td class="bold">
+                                R$ @ValorTotal.ToString("n2")
+                            </td>
+                        }
+                    </tr>
 
                     </tbody>
                 </table>

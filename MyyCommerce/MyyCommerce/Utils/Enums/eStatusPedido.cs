@@ -26,5 +26,12 @@ namespace MyyCommerce.Utils.Enums
         [Display(Name = "Cancelado")]
         Cancelado,
 
+        [DefaultValue(5)]
+        [Display(Name = "Esperando Retirada")]
+        EsperandoRetirada,
+
+        [DefaultValue(6)]
+        [Display(Name = "Retirado")]
+        Retirado,
     }
 }

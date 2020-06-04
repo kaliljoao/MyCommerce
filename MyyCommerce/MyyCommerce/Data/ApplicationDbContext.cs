@@ -23,6 +23,7 @@ namespace MyyCommerce.Data
         public virtual DbSet<ProdutoPedido> ProdutosPedido { get; set; }
         public virtual DbSet<PedidoCarrinho> PedidosCarrinho { get; set; }
         public virtual DbSet<ProdutoCarrinho> ProdutosCarrinho { get; set; }
+        public virtual DbSet<Log> Logs { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

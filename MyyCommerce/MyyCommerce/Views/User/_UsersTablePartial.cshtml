@@ -1,0 +1,105 @@
+﻿@model MyyCommerce.Models.UsersViewModel;
+@{
+    ViewData["Title"] = "_UsersTablePartial";
+}
+
+
+<div class="table-responsive" id="form-div-cliente">
+    <table class="table table-striped tablecenter">
+        <thead>
+            <tr>
+                <th>E-mail</th>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th class="columnAction">Opções</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var cliente in Model.Users)
+            {
+            <tr>
+                <td>@cliente.Email</td>
+                @if (cliente.Nome == null || cliente.Nome == "")
+                {
+                    <td> - </td>
+                }
+                else
+                {
+                    <td>@cliente.Nome</td>
+                }
+
+                @if (cliente.Telefone == null || cliente.Telefone == "")
+                {
+                    <td> - </td>
+                }
+                else
+                {
+                    <td>@cliente.Telefone</td>
+                }
+
+                <td class="columnActionBtn">
+                    <label data-toggle="modal" data-target="#modalCliente-add" data-id="@cliente.Id" class="btn btn-primary btn-xs SlowEditBtn"><span><i class="fa fa-edit"></i>  </span></label>
+                    <label data-id="@cliente.Id" class="btn btn-primary btn-xs SlowDeleteBtn"><span><i class="fa fa-trash-o"></i>  </span></label>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+
+    <form asp-action="Adicionar" asp-controller="User" id="regForm" data-ajax-success="$('#modalCliente-add').modal('hide');$('.modal-backdrop').remove();$('body').removeClass('modal-open');$('body').css('padding-right', '0px')" method="POST" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#form-div-cliente">
+        <div class="modal inmodal" id="modalCliente-add" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content animated bounceInRight">
+                    <div id="form-partial">
+                        <partial name="_UsersFormPartial" model="@new MyyCommerce.Domain.ApplicationUser()" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+     function getConfirmation() {
+        var retVal = confirm("Tem certeza que deseja remover esse Usuário?");
+        if (retVal == true) {
+            return true;
+        }
+        else {
+            return false;
+        }
+     }
+
+     $('.SlowDeleteBtn').click(function () {
+        var $buttonClicked = $(this);
+        var id = $buttonClicked.attr('data-id');
+
+        if (getConfirmation()) {
+            $.ajax({
+                url: '@Url.Action("Deletar", "User")',
+                type: 'GET',
+                data: { id: id },
+                success: function (partialView) {
+                    $('#form-div-cliente').html(partialView);
+                }
+            });
+        }
+     });
+
+
+    $('.SlowEditBtn').click(function () {
+        var $buttonClicked = $(this);
+        var id = $buttonClicked.attr('data-id');
+
+            $.ajax({
+                url: '@Url.Action("OpenExisting", "User")',
+                type: 'GET',
+                data: { id: id },
+                success: function (partialView) {
+                    $('#form-partial').html(partialView);
+                }
+            });
+     });
+
+</script>

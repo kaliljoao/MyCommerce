@@ -1,0 +1,30 @@
+﻿@model MyyCommerce.Models.UsersViewModel;
+
+<div class="col-lg-12 col-md-12 mb-4">
+    <div class="card">
+        <div class="card-body">
+            <div class="card-title">
+                <h5>
+                    Usuários
+                    <span class="SlowAddBtn" data-toggle="modal" data-target="#modalCliente-add" style="float:right;"><i class="fa fa-plus"></i></span>
+                </h5>
+
+            </div>
+            <partial name="_UsersTablePartial" model="Model" />
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $('.SlowAddBtn').click(function () {
+        $.ajax({
+            url: '@Url.Action("GetEmpty", "User")',
+            type: 'GET',
+            success: function (partialView) {
+                $('#form-partial').html(partialView);
+            }
+        });
+    });
+
+</script>

@@ -19,7 +19,7 @@
 <link href="~/assets/toastr-master/toastr.css" rel="stylesheet" type="text/css" />
 <script src="~/assets/toastr-master/toastr.js"></script>
 
-<form method="post" id="formCheckout">
+<form asp-action="FazerCheckout" asp-controller="Checkout" method="post" id="formCheckout">
     <div class="row">
         <div class="col-md-12">
             <!-- page start-->
@@ -49,7 +49,7 @@
                 <div class="card-body">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Número do cartão</label>
-                        <input class="form-control" asp-for="NumeroCartao" required="required">
+                        <input id="creditCartField" class="form-control" asp-for="NumeroCartao" required="required">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1" style="width:100%">Vencimento do cartão</label>
@@ -150,21 +150,6 @@
                         <label for="exampleInputEmail1">Complemento</label>
                         <input class="form-control" asp-for="ComplementoPagamento">
                     </div>
-                    <table>
-                        <tr>
-                            <td>Produtos</td>
-                            <td>R$ @Model.ValorTotal.ToString("n2")</td>
-                        </tr>
-                        <tr>
-                            <td>Entrega</td>
-                            <td id="PrecoEntregaCell">R$ 0,00</td>
-                        </tr>
-                        <tr>
-                            <td>Total</td>
-                            <td id="PrecoFinalCell">R$ @Model.PrecoFinal.ToString("n2")</td>
-                        </tr>
-                    </table>
-
                 </div>
             </section>
         </div>
@@ -180,17 +165,14 @@
                     </div>
                     <label class="text-center enderecoGroup" style="display:none;color:darkorange;width:100%">
                         Importante se certificar de que haverá alguém pra receber
-                        o pedido na portaria.
-                    </label>
-                    <label class="text-center lblBairroInvalido" style="display:none;color:red;width:100%">
-                        Infelizmente não estamos entregando no seu bairro no momento!
+                        o seu pedido.
                     </label>
                     <div class="form-group enderecoGroup" style="display:none">
                         <label for="exampleInputEmail1">Cep</label>
                         <div class="input-group">
                             <input class="form-control" asp-for="CepEntrega">
                             <div class="input-group-append">
-                                <span class="input-group-text" style="cursor:pointer" id="buscaCepBtn"><i class="fa fa-search"></i></span>
+                                <span class="input-group-text" style="cursor:pointer" id="buscaCepEntregaBtn"><i class="fa fa-search"></i></span>
                             </div>
                         </div>
                     </div>
@@ -214,9 +196,23 @@
                         <label for="exampleInputEmail1">Observação</label>
                         <input class="form-control" asp-for="Observacao">
                     </div>
-                    <div class="form-group">
+                    <table style="margin-bottom: 10px;">
+                        <tr style="display:none;">
+                            <td>Produtos</td>
+                            <td id="PrecoFinalPagar">R$ @Model.ValorTotal.ToString("n2")</td>
+                        </tr>
+                        <tr>
+                            <td>Entrega</td>
+                            <td id="PrecoEntregaCell">R$ 0,00</td>
+                        </tr>
+                        <tr style="display:none;">
+                            <td>Total</td>
+                            <td id="PrecoFinalCell">R$ @Model.PrecoFinal.ToString("n2")</td>
+                        </tr>
+                    </table>
+                    <div class="form-group" id="dataEntregaInfo" style="display:none;">
                         <label for="exampleInputEmail1">Data da Entrega</label>
-                        <input class="form-control" asp-for="DataEntrega" value="@DateTime.Now.AddDays(1).ToString("dd/MM/yyyy")" readonly="readonly">
+                        <input class="form-control" asp-for="DataEntrega" value="@DateTime.Now.AddDays(5).ToString("dd/MM/yyyy")" readonly="readonly">
                     </div>
                     <button class="btn btnSlow" type="submit" style="float:right"><i class="fa fa-dollar"></i> Finalizar Compra</button>
                 </div>
@@ -259,6 +255,16 @@
                 data: { id: id, Quantidade: foo },
                 success: function (partialView) {
                     $('#CheckoutProdutosDiv').html(partialView);
+                    //$('#PrecoFinalPagar').text($("#ValorTotalTabela").text());
+
+
+                    //$('#PrecoFinalPagar').val($('#ValorTotalTabela').text().substring(3, $('#ValorTotalTabela').text().length));
+
+                    //console.log($('#PrecoFinalPagar').val());
+
+                    //var total = parseFloat($('#PrecoEntregaCell').val()) + parseFloat($('#PrecoFinalPagar').text().substring(3, 10))
+                    
+                    //$('#PrecoFinalCell').text("R$ " + total);
                 }
         });
 
@@ -267,21 +273,41 @@
 
     function changeDeliveryType() {
         var index = document.getElementById('TipoEntrega').selectedIndex;
-        if(index == 2)
+        if(index == 1)
         {
-            $('#PrecoFinal').val("10");
-            $('#PrecoEntregaCell').val("R$ 10,00");
+            $('#PrecoEntregaCell').val("10");
+            $('#PrecoEntregaCell').text("R$ 10,00");
+
             $(".enderecoGroup").show();
+            $("#dataEntregaInfo").css("display","block");
         }
         else
         {
-            $('#PrecoFinal').val("0");
-            $('#PrecoEntregaCell').val("R$ 0,00");
+            $('#PrecoEntregaCell').val("0");
+            $('#PrecoEntregaCell').text("R$ 0,00");
             $(".enderecoGroup").hide();
         }
-        $('#PrecoFinal').val(parseFloat($('#PrecoFinal').val()) + parseFloat($('#PrecoFinal').val()));
-        $('#PrecoFinalCell').val("R$ " + $('#PrecoFinal').val);
+
+        var total = parseFloat($('#PrecoEntregaCell').val()) + parseFloat($('#PrecoFinalPagar').text().substring(3, 10))
+        $('#PrecoFinalCell').text("R$ " + total);
     }
+
+
+    $("#buscaCepEntregaBtn").click(function () {
+        $.ajax({
+            url: 'https://viacep.com.br/ws/' + $('#CepEntrega').val() + '/json/unicode/',
+            success: function (resposta) {
+                $("#EstadoEntrega").val(resposta.uf);
+                $("#CidadeEntrega").val(resposta.localidade);
+                $("#BairroEntrega").val(resposta.bairro);
+                $("#EnderecoEntrega").val(resposta.logradouro);
+                $("#NumeroEntrega").focus();
+            },
+            error: function () {
+                toastr["warning"]("Cep não encontrado!")
+            }
+        });
+    });
 
     $("#buscaCepBtn").click(function () {
         $.ajax({
@@ -339,22 +365,13 @@
         });
     });
 
+    function checkCreditCard() {
+        var creditCardNumber = $('#creditCartField').val();
+        if (creditCardNumber != "1234.4321.1234.4321") {
+            confirm("Cartão de crédito inválido?");
+            return false;
+        }
+        return true;
+    }
 
-    $("#formCheckout").on("submit", function (e) {
-
-        $.ajax({
-            type: "POST",
-            url: '@Url.Action("FazerCheckout", "Checkout")',
-            data: $('#formCheckout').serialize(),
-            success: function (resposta) {
-                console.log(resposta);
-                window.location.replace("/Checkout/ConfirmarCompra/" + resposta);
-            },
-            error: function(erro) {
-                console.log(erro)
-                formsubmitted = false;
-            }
-        });
-
-    });
 </script>

@@ -97,8 +97,64 @@ namespace MyyCommerce.Controllers
             return model;
         }
 
+        public IActionResult PagarPedido(int id)
+        {
+            Pedido Pedido = db.Pedido.Where(x => x.Id == id).FirstOrDefault();
+            Pedido.StatusPagamento = Utils.Enums.eStatusPagamento.Pago;
 
+            if(Pedido.TipoEntrega == Utils.Enums.eTipoEntrega.Delivery)
+                Pedido.StatusPedido = Utils.Enums.eStatusPedido.Pago;
+            else
+                Pedido.StatusPedido = Utils.Enums.eStatusPedido.EsperandoRetirada;
 
+            db.Update(Pedido);
+            db.SaveChanges();
+            return PartialView("_PedidosTablePartial", GetPedidoModel(1));
+        }
+
+        public IActionResult Entregar(int id)
+        {
+            Pedido Pedido = db.Pedido.Where(x => x.Id == id).FirstOrDefault();
+            Pedido.StatusPedido = Utils.Enums.eStatusPedido.EmRota;
+            db.Update(Pedido);
+            db.SaveChanges();
+            return PartialView("_PedidosTablePartial", GetPedidoModel(1));
+        }
+
+        public IActionResult Retirar(int id)
+        {
+            Pedido Pedido = db.Pedido.Where(x => x.Id == id).FirstOrDefault();
+            Pedido.StatusPedido = Utils.Enums.eStatusPedido.Retirado;
+            db.Update(Pedido);
+            db.SaveChanges();
+            return PartialView("_PedidosTablePartial", GetPedidoModel(1));
+        }
+
+        public IActionResult Receber(int id)
+        {
+            Pedido Pedido = db.Pedido.Where(x => x.Id == id).FirstOrDefault();
+            Pedido.StatusPedido = Utils.Enums.eStatusPedido.Entregue;
+            db.Update(Pedido);
+            db.SaveChanges();
+            return PartialView("_PedidosTablePartial", GetPedidoModel(1));
+        }
+
+        public IActionResult Cancelar(int id)
+        {
+            Pedido Pedido = db.Pedido.Where(x => x.Id == id).Include(x => x.Produtos).FirstOrDefault();
+
+            Pedido.Produtos.ForEach(produto => {
+                Produto p = db.Produtos.Where(x => x.Id == produto.ProdutoId).FirstOrDefault();
+                p.QtdEstoque += produto.Quantidade;
+                db.Update(p);
+            });
+
+            Pedido.StatusPedido = Utils.Enums.eStatusPedido.Cancelado;
+            Pedido.StatusPagamento = Utils.Enums.eStatusPagamento.Cancelada;
+            db.Update(Pedido);
+            db.SaveChanges();
+            return PartialView("_PedidosTablePartial", GetPedidoModel(1));
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -63,12 +63,23 @@ namespace MyyCommerce.Controllers
             if (model.Produto.Fotos == null)
                 model.Produto.Fotos = new List<ProdutoImage>();
 
+            Log log = new Log();
             if (model.Produto.Id == 0)
             {
+                log.DataHora = DateTime.Now;
+                log.UserId = _userManager.GetUserAsync(HttpContext.User).Result.Id;
+                log.Mensagem = "Produto " + model.Produto.Nome + " criado";
+
+                db.Add(log);
                 db.Attach(model.Produto);
             }
             else
             {
+                log.DataHora = DateTime.Now;
+                log.UserId = _userManager.GetUserAsync(HttpContext.User).Result.Id;
+                log.Mensagem = "Produto " + model.Produto.Nome + " editado";
+
+                db.Add(log);
                 db.Update(model.Produto);
             }
 
@@ -99,6 +110,7 @@ namespace MyyCommerce.Controllers
                     model.Produto.Fotos.Add(image);
                 }
 
+            
             db.SaveChanges();
 
             ModelState.Clear();
@@ -118,7 +130,16 @@ namespace MyyCommerce.Controllers
 
         public IActionResult Deletar(int id)
         {
-            applicationUser.DeletarProduto(id); // Mudar pra usuário logado
+            _userManager.GetUserAsync(HttpContext.User).Result.DeletarProduto(id); // Mudar pra usuário logado
+
+            Log log = new Log();
+            log.DataHora = DateTime.Now;
+            log.UserId = _userManager.GetUserAsync(HttpContext.User).Result.Id;
+            log.Mensagem = "Produto " + db.Produtos.Where(x => x.Id == id).FirstOrDefault().Nome + " deletado";
+
+            db.Add(log);
+            db.SaveChanges();
+
             ModelState.Clear();
             return PartialView("_ProdutoTablePartial", GetProdutoModel(HttpContext.Session.GetInt32("ProdutoPage")));
         }

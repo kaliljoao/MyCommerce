@@ -55,6 +55,9 @@ else {
             {
                 <li><a class="DesktopMenu @Html.IsSelected(controller: "Produto", action: "Index")" asp-area="" asp-controller="Produto" asp-action="Index">Produtos</a></li>
                 <li><a class="DesktopMenu @Html.IsSelected(controller: "Pedido")" asp-area="" asp-controller="Pedido" asp-action="Index">Pedidos</a></li>
+                <li><a class="DesktopMenu @Html.IsSelected(controller: "User")" asp-area="" asp-controller="User" asp-action="Index">Usuários</a></li>
+                <li><a class="DesktopMenu @Html.IsSelected(controller: "Log")" asp-area="" asp-controller="Log" asp-action="Index">Registros</a></li>
+
             }
         </ul>
         <ul class="nav pull-right top-menu">

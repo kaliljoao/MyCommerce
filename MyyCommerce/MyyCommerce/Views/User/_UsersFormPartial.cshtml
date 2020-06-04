@@ -1,0 +1,84 @@
+﻿@model MyyCommerce.Domain.ApplicationUser;
+
+<div class="modal-header">
+    @if (Model.Id == "" || Model.Id == null)
+    {
+        <h4 class="modal-title">Adicionar Usuário</h4>
+    }
+    else
+    {
+        <h4 class="modal-title">Editar Usuário</h4>
+    }
+</div>
+<div class="modal-body">
+    @if (!(Model.Id == "" || Model.Id == null))
+    {
+        <div class="form-group"><label>Nome</label> @Html.TextBoxFor(m => m.Nome, new { @class = "form-control", autocomplete = "off", placeholder = "Nome", required = "required" })</div>
+        <div class="form-group"><label>Telefone</label> @Html.TextBoxFor(m => m.Telefone, new { @class = "form-control", autocomplete = "off", placeholder = "Telefone", required = "required" })</div>
+    }
+    else
+    {
+        <div class="form-group"><label>Nome</label> @Html.TextBoxFor(m => m.Nome, new { @class = "form-control", autocomplete = "off", placeholder = "Nome", required = "required" })</div>
+        <div class="form-group"><label>E-mail</label> @Html.TextBoxFor(m => m.Email, new { @class = "form-control", autocomplete = "off", Autocomplete = "off", placeholder = "E-mail", required = "required" })</div>
+        <div class="form-group"><label>Telefone</label> @Html.TextBoxFor(m => m.Telefone, new { @class = "form-control", autocomplete = "off", placeholder = "Telefone", Autocomplete = "off", required = "required", onkeydown = "javascript: fMasc(this, mTel);", maxlength = 14 })</div>
+        <div class="form-group"><label>Senha</label> @Html.TextBoxFor(m => m.Senha, new { @class = "form-control", autocomplete = "off", type = "password", placeholder = "Senha", required = "required", Autocomplete = "off" })</div>
+    }
+    @Html.TextBoxFor(m => m.Id, new { @class = "form-control", autocomplete = "off", placeholder = "Id", Style = "display:none" })
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-white btnCloseSlow" data-dismiss="modal">Fechar</button>
+    <button type="submit" class="btn btn-primary btnSaveSlow">Salvar</button>
+</div>
+
+<script>
+    function fMasc(objeto, mascara) {
+        obj = objeto
+        masc = mascara
+        setTimeout("fMascEx()", 1)
+    }
+    function fMascEx() {
+        obj.value = masc(obj.value)
+    }
+    function mTel(tel) {
+        tel = tel.replace(/\D/g, "")
+        tel = tel.replace(/^(\d)/, "($1")
+        tel = tel.replace(/(.{3})(\d)/, "$1)$2")
+        if (tel.length == 9) {
+            tel = tel.replace(/(.{1})$/, "-$1")
+        } else if (tel.length == 10) {
+            tel = tel.replace(/(.{2})$/, "-$1")
+        } else if (tel.length == 11) {
+            tel = tel.replace(/(.{3})$/, "-$1")
+        } else if (tel.length == 12) {
+            tel = tel.replace(/(.{4})$/, "-$1")
+        } else if (tel.length > 12) {
+            tel = tel.replace(/(.{4})$/, "-$1")
+        }
+        return tel;
+    }
+    function mCNPJ(cnpj) {
+        cnpj = cnpj.replace(/\D/g, "")
+        cnpj = cnpj.replace(/^(\d{2})(\d)/, "$1.$2")
+        cnpj = cnpj.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
+        cnpj = cnpj.replace(/\.(\d{3})(\d)/, ".$1/$2")
+        cnpj = cnpj.replace(/(\d{4})(\d)/, "$1-$2")
+        return cnpj
+    }
+    function mCPF(cpf) {
+        cpf = cpf.replace(/\D/g, "")
+        cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
+        cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
+        cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2")
+        return cpf
+    }
+    function mCEP(cep) {
+        cep = cep.replace(/\D/g, "")
+        cep = cep.replace(/^(\d{2})(\d)/, "$1.$2")
+        cep = cep.replace(/\.(\d{3})(\d)/, ".$1-$2")
+        return cep
+    }
+    function mNum(num) {
+        num = num.replace(/\D/g, "")
+        return num
+    }
+</script>

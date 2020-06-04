@@ -17,7 +17,7 @@
                 <th>Data Entrega</th>
                 <th>Pagamento</th>
                 <th>Status</th>
-                <th class="columnAction">Opções</th>
+                <th class="columnAction" style="width: 30%;">Opções</th>
             </tr>
         </thead>
         <tbody>
@@ -36,7 +36,39 @@
 
                 <td class="columnActionBtn">
                     <label class="btn btn-primary btn-xs SlowEditBtn SlowDetalharBtn" data-id="@pedido.Id" data-toggle="modal" data-target="#modaldetalharpedido"><span>Detalhar </span></label>
-                    <label data-id="@pedido.Id" class="btn btn-primary btn-xs SlowDeleteBtn"><span><i class="fa fa-trash-o"></i> </span></label>
+                    @if (pedido.StatusPagamento == MyyCommerce.Utils.Enums.eStatusPagamento.AguardandoPagamento)
+                    {
+                        <label class="btn btn-primary btn-xs SlowEditBtn SlowDetalharBtn SlowPagarbtn" data-id="@pedido.Id"><span>Pagar </span></label>
+                    }
+                    else if (pedido.StatusPagamento == MyyCommerce.Utils.Enums.eStatusPagamento.Pago &&
+                             pedido.StatusPedido == MyyCommerce.Utils.Enums.eStatusPedido.Pago &&
+                             pedido.TipoEntrega != MyyCommerce.Utils.Enums.eTipoEntrega.Retirada &&
+                             !User.IsInRole("Cliente"))
+                    {
+                        <label class="btn btn-primary btn-xs SlowEditBtn SlowDetalharBtn SlowEntregarbtn" data-id="@pedido.Id"><span> Entregar </span></label>
+                    }
+                    else if (pedido.StatusPagamento == MyyCommerce.Utils.Enums.eStatusPagamento.Pago &&
+                             pedido.StatusPedido == MyyCommerce.Utils.Enums.eStatusPedido.EsperandoRetirada &&
+                             pedido.TipoEntrega == MyyCommerce.Utils.Enums.eTipoEntrega.Retirada &&
+                             !User.IsInRole("Cliente"))
+                    {
+                        <label class="btn btn-primary btn-xs SlowEditBtn SlowDetalharBtn SlowRetirarbtn" data-id="@pedido.Id"><span> Retirar </span></label>
+                    }
+                    else if (pedido.StatusPagamento == MyyCommerce.Utils.Enums.eStatusPagamento.Pago &&
+                             pedido.StatusPedido == MyyCommerce.Utils.Enums.eStatusPedido.EmRota &&
+                             pedido.TipoEntrega != MyyCommerce.Utils.Enums.eTipoEntrega.Retirada &&
+                             !User.IsInRole("Cliente"))
+                    {
+                        <label class="btn btn-primary btn-xs SlowEditBtn SlowDetalharBtn SlowReceberbtn" data-id="@pedido.Id"><span> Receber </span></label>
+                    }
+                    @if (User.IsInRole("Cliente") &&
+                        (pedido.StatusPagamento == MyyCommerce.Utils.Enums.eStatusPagamento.AguardandoPagamento ||
+                        pedido.StatusPagamento == MyyCommerce.Utils.Enums.eStatusPagamento.EmAnalise
+                        ))
+                    {
+                        <label class="btn btn-primary btn-xs SlowEditBtn SlowDetalharBtn SlowCancelarbtn" data-id="@pedido.Id"><span> Cancelar </span></label>
+                    }
+                    @*<label data-id="@pedido.Id" class="btn btn-primary btn-xs SlowDeleteBtn"><span><i class="fa fa-trash-o"></i> </span></label>*@
                 </td>
             </tr>
             }
@@ -127,6 +159,141 @@
             });
         }
      });
+
+
+    function getConfirmationMudancaStatusPagamento() {
+        var retVal = confirm("Mudar status do pedido para PAGO?");
+        if (retVal == true) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    $('.SlowPagarbtn').click(function () {
+        var $buttonClicked = $(this);
+        var id = $buttonClicked.attr('data-id');
+
+        if (getConfirmationMudancaStatusPagamento()) {
+            $.ajax({
+                url: '@Url.Action("PagarPedido", "Pedido")',
+                type: 'GET',
+                data: { id: id },
+                success: function (partialView) {
+                    $('#form-div-produto').html(partialView);
+                }
+            });
+        }
+    });
+
+    function getConfirmationEntregar() {
+        var retVal = confirm("Enviar produto para o cliente?");
+        if (retVal == true) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    $('.SlowEntregarbtn').click(function () {
+        var $buttonClicked = $(this);
+        var id = $buttonClicked.attr('data-id');
+
+        if (getConfirmationEntregar()) {
+            $.ajax({
+                url: '@Url.Action("Entregar", "Pedido")',
+                type: 'GET',
+                data: { id: id },
+                success: function (partialView) {
+                    $('#form-div-produto').html(partialView);
+                }
+            });
+        }
+    });
+
+
+    function getConfirmationRetirar() {
+        var retVal = confirm("Confirmar a retirada do pedido?");
+        if (retVal == true) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    $('.SlowRetirarbtn').click(function () {
+        var $buttonClicked = $(this);
+        var id = $buttonClicked.attr('data-id');
+
+        if (getConfirmationRetirar()) {
+            $.ajax({
+                url: '@Url.Action("Retirar", "Pedido")',
+                type: 'GET',
+                data: { id: id },
+                success: function (partialView) {
+                    $('#form-div-produto').html(partialView);
+                }
+            });
+        }
+     });
+
+
+    function getConfirmationReceber() {
+        var retVal = confirm("Confirmar que o pedido foi recebido?");
+        if (retVal == true) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    $('.SlowReceberbtn').click(function () {
+        var $buttonClicked = $(this);
+        var id = $buttonClicked.attr('data-id');
+
+        if (getConfirmationReceber()) {
+            $.ajax({
+                url: '@Url.Action("Receber", "Pedido")',
+                type: 'GET',
+                data: { id: id },
+                success: function (partialView) {
+                    $('#form-div-produto').html(partialView);
+                }
+            });
+        }
+    });
+
+
+    function getConfirmationCancelamento() {
+        var retVal = confirm("Confirmar cancelamento do pedido?");
+        if (retVal == true) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    $('.SlowCancelarbtn').click(function () {
+        var $buttonClicked = $(this);
+        var id = $buttonClicked.attr('data-id');
+
+        if (getConfirmationCancelamento()) {
+            $.ajax({
+                url: '@Url.Action("Cancelar", "Pedido")',
+                type: 'GET',
+                data: { id: id },
+                success: function (partialView) {
+                    $('#form-div-produto').html(partialView);
+                }
+            });
+        }
+     });
+
 
 
     $('.SlowEditBtn').click(function () {

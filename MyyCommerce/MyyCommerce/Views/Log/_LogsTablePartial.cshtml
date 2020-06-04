@@ -1,0 +1,27 @@
+﻿@model MyyCommerce.Models.LogViewModel;
+@{
+    ViewData["Title"] = "_ProdutoTablePartial";
+}
+
+
+<div class="table-responsive" id="form-div-log">
+    <table class="table table-striped tablecenter">
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Mensagem</th>
+                <th>Executor</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var log in Model.Logs)
+            {
+                <tr>
+                    <td>@log.DataHora.ToString("dd/MM/yyyy")</td>
+                    <td>@log.Mensagem</td>
+                    <td>@log.User.Email</td>         
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

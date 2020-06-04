@@ -49,20 +49,19 @@ namespace MyyCommerce.Controllers
                 ApplicationUserId = this.User.FindFirstValue(ClaimTypes.NameIdentifier),
                 Cep = model.CepEntrega,
                 Complemento = model.ComplementoEntrega,
-                DataEntrega = DateTime.ParseExact(model.DataEntrega,"dd/MM/yyyy", CultureInfo.CurrentCulture),
+                DataEntrega = DateTime.ParseExact(model.DataEntrega, "dd/MM/yyyy", CultureInfo.CurrentCulture),
                 Endereco = model.EnderecoEntrega,
                 DataPedido = DateTime.Now,
                 Numero = model.NumEntrega,
                 TipoEntrega = model.TipoEntrega,
-
             };
 
             var carrinho = HttpContext.Session.GetObjectFromJson<PedidoCarrinho>("CarrinhoDb");
-            
+
             pedido.Produtos = new List<ProdutoPedido>();
             foreach (var item in carrinho.Produtos)
             {
-                ProdutoPedido produtoPedido = new ProdutoPedido() { 
+                ProdutoPedido produtoPedido = new ProdutoPedido() {
                     ProdutoId = item.ProdutoId,
                     Quantidade = item.Quantidade,
                 };
@@ -74,7 +73,7 @@ namespace MyyCommerce.Controllers
 
             var client = _clientFactory.CreateClient();
 
-           
+
             foreach (var produto in carrinho.Produtos)
             {
                 var produtoEstoque = db.Produtos.Where(x => x.Id == produto.ProdutoId).FirstOrDefault();
@@ -89,7 +88,11 @@ namespace MyyCommerce.Controllers
             db.PedidosCarrinho.Remove(db.PedidosCarrinho.Where(x => x.UserId == user.Id).FirstOrDefault());
             db.SaveChanges();
 
-            return Ok(pedido.Id);
+            PedidoCarrinho carrinhoSession = HttpContext.Session.GetObjectFromJson<PedidoCarrinho>("CarrinhoDb");
+            carrinhoSession.Produtos = new List<ProdutoCarrinho>();
+            HttpContext.Session.SetObjectAsJson("CarrinhoDb", carrinhoSession);
+
+            return RedirectToAction("ConfirmarCompra", "Checkout", new { id = pedido.Id});
         }
 
         public async Task<IActionResult> RemoverProduto(int id, int Quantidade)
